@@ -40,7 +40,11 @@ namespace boost
                         var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
                         cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
                     });
-                this.CompileAgainst<WindowsSDK.WindowsSDK>(this.BoostSource);
+
+                if (this.Librarian is VisualCCommon.Librarian)
+                {
+                    this.CompileAgainst<WindowsSDK.WindowsSDK>(this.BoostSource);
+                }
             }
         }
     }
