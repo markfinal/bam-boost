@@ -39,6 +39,12 @@ namespace boost
                     {
                         var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
                         cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
+
+                        var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                        if (null != vcCompiler)
+                        {
+                            vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level2; // does not compile warning-free above this level
+                        }
                     });
 
                 if (this.Librarian is VisualCCommon.Librarian)
