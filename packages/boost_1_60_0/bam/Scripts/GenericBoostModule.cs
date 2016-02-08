@@ -22,6 +22,12 @@ namespace boost
             private set;
         }
 
+        protected C.HeaderFileCollection BoostHeaders
+        {
+            get;
+            private set;
+        }
+
         protected override void
         Init(
             Bam.Core.Module parent)
@@ -31,8 +37,19 @@ namespace boost
             this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-vc120-mt-1_60", this.Name));
             this.Macros["libprefix"] = TokenizedString.CreateVerbatim("lib");
 
+            this.BoostHeaders = this.CreateHeaderContainer(string.Format("$(packagedir)/boost/{0}/**.hpp", this.Name));
+
             this.BoostSource = this.CreateCxxSourceContainer();
-            this.CompileAgainstPublicly<BoostHeaders>(this.BoostSource);
+
+            this.PublicPatch((settings, appliedTo) =>
+                {
+                    var compiler = settings as C.ICommonCompilerSettings;
+                    if (null != compiler)
+                    {
+                        compiler.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
+                    }
+                });
+
             if (this.BuildEnvironment.Platform.Includes(EPlatform.Windows))
             {
                 this.BoostSource.PrivatePatch(settings =>
