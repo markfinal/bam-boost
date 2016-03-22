@@ -28,6 +28,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
 using Bam.Core;
+using System.Linq;
 namespace boost
 {
     abstract class GenericBoostModule :
@@ -65,10 +66,27 @@ namespace boost
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                // TODO: check VisualC version
+                var visualC = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "VisualC").First();
+                string vcVer = string.Empty;
+                if (visualC.Version == "14.0")
+                {
+                    vcVer = "140";
+                }
+                else if (visualC.Version == "12.0")
+                {
+                    vcVer = "120";
+                }
+                else if (visualC.Version == "11.0")
+                {
+                    vcVer = "110";
+                }
+                else
+                {
+                    throw new Bam.Core.Exception("Unsupported version of VisualC, {0}", visualC.Version);
+                }
                 // TODO: check runtime library - if using a debug version, add 'd' as a suffix on the toolchain
                 // no prefix as it's not a static runtime
-                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-vc120-mt-1_60", this.Name));
+                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-vc{1}-mt-1_60", this.Name, vcVer));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
