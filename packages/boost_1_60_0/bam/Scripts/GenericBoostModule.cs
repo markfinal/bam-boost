@@ -63,8 +63,21 @@ namespace boost
         {
             base.Init(parent);
 
-            this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-vc120-mt-1_60", this.Name));
-            this.Macros["libprefix"] = TokenizedString.CreateVerbatim("lib");
+            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
+            {
+                // TODO: check VisualC version, and runtime library
+                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-vc120-mt-1_60", this.Name));
+                this.Macros["libprefix"] = TokenizedString.CreateVerbatim("lib");
+            }
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
+            {
+                // TODO: validate
+                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-gcc-1_60", this.Name));
+            }
+            else
+            {
+                throw new Bam.Core.Exception("Invalid platform for Boost builds");
+            }
 
             this.BoostHeaders = this.CreateHeaderContainer(string.Format("$(packagedir)/boost/{0}/**.hpp", this.Name));
 
@@ -79,24 +92,21 @@ namespace boost
                     }
                 });
 
-            if (this.BuildEnvironment.Platform.Includes(EPlatform.Windows))
-            {
-                this.BoostSource.PrivatePatch(settings =>
-                    {
-                        var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
-                        cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
-
-                        var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                        if (null != vcCompiler)
-                        {
-                            vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level2; // does not compile warning-free above this level
-                        }
-                    });
-
-                if (this.Librarian is VisualCCommon.Librarian)
+            this.BoostSource.PrivatePatch(settings =>
                 {
-                    this.CompileAgainst<WindowsSDK.WindowsSDK>(this.BoostSource);
-                }
+                    var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
+                    cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
+
+                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                    if (null != vcCompiler)
+                    {
+                        vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level2; // does not compile warning-free above this level
+                    }
+                });
+
+            if (this.Librarian is VisualCCommon.Librarian)
+            {
+                this.CompileAgainst<WindowsSDK.WindowsSDK>(this.BoostSource);
             }
         }
     }
