@@ -46,6 +46,11 @@ namespace boost
 
             this.CreateHeaderContainer("$(packagedir)/libs/filesystem/src/*.hpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/filesystem/src/*.cpp");
+
+            if (this is C.Cxx.DynamicLibrary)
+            {
+                this.LinkAgainst<System>();
+            }
         }
     }
 }

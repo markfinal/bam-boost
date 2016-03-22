@@ -45,6 +45,11 @@ namespace boost
             base.Init(parent);
 
             this.BoostSource.AddFiles("$(packagedir)/libs/chrono/src/*.cpp");
+
+            if (this is C.Cxx.DynamicLibrary)
+            {
+                this.LinkAgainst<System>();
+            }
         }
     }
 }

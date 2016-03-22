@@ -65,14 +65,15 @@ namespace boost
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                // TODO: check VisualC version, and runtime library
+                // TODO: check VisualC version
+                // TODO: check runtime library - if using a debug version, add 'd' as a suffix on the toolchain
+                // no prefix as it's not a static runtime
                 this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-vc120-mt-1_60", this.Name));
-                this.Macros["libprefix"] = TokenizedString.CreateVerbatim("lib");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
                 // TODO: validate
-                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-gcc-1_60", this.Name));
+                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-1_60", this.Name));
             }
             else
             {
@@ -89,6 +90,7 @@ namespace boost
                     if (null != compiler)
                     {
                         compiler.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
+                        compiler.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
                     }
                 });
 

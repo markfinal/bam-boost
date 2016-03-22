@@ -52,8 +52,15 @@ namespace boost
                 this.BoostSource.PrivatePatch(settings =>
                     {
                         var compiler = settings as C.ICommonCompilerSettings;
-                        compiler.PreprocessorDefines.Add("BOOST_THREAD_BUILD_LIB");
+                        compiler.PreprocessorDefines.Add("BOOST_THREAD_BUILD_DLL"); // not _LIB, as this is a dynamic library
                     });
+            }
+
+            if (this is C.Cxx.DynamicLibrary)
+            {
+                this.LinkAgainst<System>();
+                this.LinkAgainst<DateTime>();
+                this.LinkAgainst<Chrono>();
             }
         }
     }
