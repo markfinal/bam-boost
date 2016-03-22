@@ -54,6 +54,18 @@ namespace boost
                 this.LinkAgainst<DateTime>();
                 this.LinkAgainst<Chrono>();
             }
+
+            // TODO: this is a hack
+            // for some reason, symbols like expression_grammar_gen (which is templated) are not exported to the
+            // shared object with the visibility attribute set
+            if (this.Linker is GccCommon.LinkerBase)
+            {
+                this.BoostSource.PrivatePatch(settings =>
+                    {
+                        var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                        gccCompiler.Visibility = GccCommon.EVisibility.Default;
+                    });
+            }
         }
     }
 }
