@@ -55,6 +55,11 @@ namespace boost
                         compiler.PreprocessorDefines.Add("BOOST_THREAD_BUILD_DLL"); // not _LIB, as this is a dynamic library
                     });
             }
+            else
+            {
+                this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/pthread/thread.cpp");
+                this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/pthread/once.cpp");
+            }
 
             if (this is C.Cxx.DynamicLibrary)
             {
