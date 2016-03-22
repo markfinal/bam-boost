@@ -46,6 +46,14 @@ namespace boost
 
             this.BoostSource.AddFiles("$(packagedir)/libs/wave/src/*.cpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/wave/src/cpplexer/re2clex/*.cpp");
+
+            if (this is C.Cxx.DynamicLibrary)
+            {
+                this.LinkAgainst<Thread>();
+                this.LinkAgainst<System>();
+                this.LinkAgainst<DateTime>();
+                this.LinkAgainst<Chrono>();
+            }
         }
     }
 }
