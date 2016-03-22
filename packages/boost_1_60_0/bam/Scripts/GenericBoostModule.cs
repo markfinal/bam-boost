@@ -31,7 +31,7 @@ using Bam.Core;
 namespace boost
 {
     abstract class GenericBoostModule :
-        C.StaticLibrary
+        C.Cxx.DynamicLibrary
     {
         protected GenericBoostModule(
             string name)
@@ -104,9 +104,9 @@ namespace boost
                     }
                 });
 
-            if (this.Librarian is VisualCCommon.Librarian)
+            if (this.Linker is VisualCCommon.LinkerBase)
             {
-                this.CompileAgainst<WindowsSDK.WindowsSDK>(this.BoostSource);
+                this.CompilePubliclyAndLinkAgainst<WindowsSDK.WindowsSDK>(this.BoostSource);
             }
         }
     }
