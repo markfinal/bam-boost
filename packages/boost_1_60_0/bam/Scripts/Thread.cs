@@ -63,9 +63,9 @@ namespace boost
 
             if (this is C.Cxx.DynamicLibrary)
             {
-                this.LinkAgainst<System>();
-                this.LinkAgainst<DateTime>();
-                this.LinkAgainst<Chrono>();
+                this.LinkPubliclyAgainst<DateTime>();
+                this.LinkPubliclyAgainst<System>();
+                this.LinkPubliclyAgainst<Chrono>();
             }
         }
     }
