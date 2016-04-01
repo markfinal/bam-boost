@@ -93,6 +93,11 @@ namespace boost
                 // TODO: validate
                 this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-1_60", this.Name));
             }
+            else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
+            {
+                // TODO: validate
+                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-1_60", this.Name));
+            }
             else
             {
                 throw new Bam.Core.Exception("Invalid platform for Boost builds");
