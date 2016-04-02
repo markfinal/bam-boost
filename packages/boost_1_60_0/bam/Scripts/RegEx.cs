@@ -45,6 +45,15 @@ namespace boost
             base.Init(parent);
 
             this.BoostSource.AddFiles("$(packagedir)/libs/regex/src/*.cpp");
+
+            this.BoostSource.PrivatePatch(settings =>
+                {
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        clangCompiler.Visibility = ClangCommon.EVisibility.Default; // TODO: don't know why, but templated do_assign functions were missing at link without this
+                    }
+                });
         }
     }
 }
