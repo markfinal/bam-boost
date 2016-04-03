@@ -58,14 +58,19 @@ namespace boost
             // TODO: this is a hack
             // for some reason, symbols like expression_grammar_gen (which is templated) are not exported to the
             // shared object with the visibility attribute set
-            if (this.Linker is GccCommon.LinkerBase)
-            {
-                this.BoostSource.PrivatePatch(settings =>
+            this.BoostSource.PrivatePatch(settings =>
+                {
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
                     {
-                        var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
                         gccCompiler.Visibility = GccCommon.EVisibility.Default;
-                    });
-            }
+                    }
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        clangCompiler.Visibility = ClangCommon.EVisibility.Default;
+                    }
+                });
         }
     }
 }
