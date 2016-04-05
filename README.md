@@ -6,6 +6,6 @@ Versions present:
 
 * boost-1.60.0
 
-Download the [Boost prebuilt packages](http://www.boost.org/users/download/) and extract into the appropriate package directory.
+Download the [Boost source package](http://www.boost.org/users/download/) and extract into the appropriate package directory.
 
 Build scripts can be run on Windows, Linux and OSX.
