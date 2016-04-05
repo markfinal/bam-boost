@@ -8,4 +8,4 @@ Versions present:
 
 Download the [Boost prebuilt packages](http://www.boost.org/users/download/) and extract into the appropriate package directory.
 
-This has been tested on Windows primarily.
+Build scripts can be run on Windows, Linux and OSX.
