@@ -45,6 +45,16 @@ namespace boost
             base.Init(parent);
 
             this.BoostSource.AddFiles("$(packagedir)/libs/system/src/*.cpp");
+
+            this.PublicPatch((settings, appliedTo) =>
+                {
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("unused-variable"); // boost_1_60_0/boost/system/error_code.hpp:221:36: error: 'boost::system::posix_category' defined but not used
+                    }
+                });
         }
     }
 }

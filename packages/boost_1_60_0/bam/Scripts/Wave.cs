@@ -50,7 +50,7 @@ namespace boost
             if (this is C.Cxx.DynamicLibrary)
             {
                 this.LinkAgainst<Thread>();
-                this.LinkAgainst<System>();
+                this.CompilePubliclyAndLinkAgainst<System>(this.BoostSource);
                 this.LinkAgainst<DateTime>();
                 this.LinkAgainst<Chrono>();
             }
@@ -64,11 +64,29 @@ namespace boost
                     if (null != gccCompiler)
                     {
                         gccCompiler.Visibility = GccCommon.EVisibility.Default;
+
+                        gccCompiler.AllWarnings = true;
+                        gccCompiler.ExtraWarnings = true;
+                        gccCompiler.Pedantic = true;
+
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("missing-field-initializers"); // boost_1_60_0/boost/atomic/detail/bitwise_cast.hpp:39:14: error: missing initializer for member 'boost::atomics::detail::bitwise_cast(const From&) [with To = long unsigned int; From = void*]::<anonymous struct>::to'
                     }
                     var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
                     if (null != clangCompiler)
                     {
                         clangCompiler.Visibility = ClangCommon.EVisibility.Default;
+                    }
+                });
+
+            this.PublicPatch((settings, appliedTo) =>
+                {
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("unused-local-typedefs"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:286:68: error: typedef 'iterator_t' locally defined but not used
+                        compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/wave/grammars/cpp_grammar.hpp:730:1: error: unused parameter 'act_pos'
                     }
                 });
         }
