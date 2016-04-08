@@ -91,6 +91,13 @@ namespace boost
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/wave/util/flex_string.hpp:292:16: error: unused parameter 'alloc'
                     }
+                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                    if (null != vcCompiler)
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("4512"); // boost_1_60_0\boost/spirit/home/classic/core/scanner/scanner.hpp(198) : warning C4512: 'boost::spirit::classic::scanner_policies<iter_policy_t,boost::spirit::classic::match_policy,boost::spirit::classic::action_policy>' : assignment operator could not be generated
+                        compiler.DisableWarnings.AddUnique("4709"); // boost_1_60_0\boost/spirit/home/classic/phoenix/primitives.hpp(59) : warning C4709: comma operator within array index expression
+                    }
                 });
 
             this.PublicPatch((settings, appliedTo) =>
@@ -102,6 +109,15 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("unused-local-typedefs"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:286:68: error: typedef 'iterator_t' locally defined but not used
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/wave/grammars/cpp_grammar.hpp:730:1: error: unused parameter 'act_pos'
                         compiler.DisableWarnings.AddUnique("missing-field-initializers"); // boost_1_60_0/boost/atomic/detail/bitwise_cast.hpp:39:14: error: missing initializer for member 'boost::atomics::detail::bitwise_cast(const From&) [with To = long unsigned int; From = void*]::<anonymous struct>::to'
+                    }
+                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                    if (null != vcCompiler)
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("4245"); // boost_1_60_0\boost/wave/grammars/cpp_expression_grammar.hpp(376) : warning C4245: 'argument' : conversion from 'boost::wave::token_category' to 'unsigned long', signed/unsigned mismatch
+                        compiler.DisableWarnings.AddUnique("4100"); // boost_1_60_0\boost/wave/grammars/cpp_grammar.hpp(732) : warning C4100: 'act_pos' : unreferenced formal parameter
+                        compiler.DisableWarnings.AddUnique("4702"); // boost_1_60_0\boost\wave\cpplexer\re2clex\cpp_re2c_lexer.hpp(327) : warning C4702: unreachable code
+                        compiler.DisableWarnings.AddUnique("4706"); // boost_1_60_0\boost\wave\util\cpp_iterator.hpp(723) : warning C4706: assignment within conditional expression
                     }
                 });
         }

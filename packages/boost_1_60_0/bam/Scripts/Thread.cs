@@ -53,6 +53,12 @@ namespace boost
                     {
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.PreprocessorDefines.Add("BOOST_THREAD_BUILD_DLL"); // not _LIB, as this is a dynamic library
+
+                        var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                        if (null != vcCompiler)
+                        {
+                            compiler.DisableWarnings.AddUnique("4100"); // boost_1_60_0\libs\thread\src\win32\thread.cpp(654) : warning C4100: 'TolerableDelay' : unreferenced formal parameter
+                        }
                     });
             }
             else

@@ -125,7 +125,7 @@ namespace boost
                     var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
                     if (null != vcCompiler)
                     {
-                        vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level2; // does not compile warning-free above this level
+                        vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level4;
                     }
                 });
 

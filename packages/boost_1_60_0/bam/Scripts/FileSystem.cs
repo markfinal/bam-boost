@@ -67,6 +67,14 @@ namespace boost
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order'
                     }
+
+                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                    if (null != vcCompiler)
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("4267"); // boost_1_60_0\libs\filesystem\src\unique_path.cpp(112) : warning C4267: 'argument' : conversion from 'size_t' to 'DWORD', possible loss of data
+                        compiler.DisableWarnings.AddUnique("4244"); // boost_1_60_0\libs\filesystem\src\windows_file_codecvt.cpp(43) : warning C4244: 'argument' : conversion from '__int64' to 'int', possible loss of data
+                    }
                 });
 
             if (this is C.Cxx.DynamicLibrary)
