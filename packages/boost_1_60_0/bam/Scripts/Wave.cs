@@ -51,7 +51,7 @@ namespace boost
             {
                 this.LinkAgainst<Thread>();
                 this.CompilePubliclyAndLinkAgainst<System>(this.BoostSource);
-                this.LinkAgainst<DateTime>();
+                this.CompilePubliclyAndLinkAgainst<DateTime>(this.BoostSource);
                 this.LinkAgainst<Chrono>();
             }
 
@@ -64,7 +64,19 @@ namespace boost
                     if (null != gccCompiler)
                     {
                         gccCompiler.Visibility = GccCommon.EVisibility.Default;
+                    }
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        clangCompiler.Visibility = ClangCommon.EVisibility.Default;
+                    }
+                });
 
+            this.BoostSource.PrivatePatch(settings =>
+                {
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
+                    {
                         gccCompiler.AllWarnings = true;
                         gccCompiler.ExtraWarnings = true;
                         gccCompiler.Pedantic = true;
@@ -75,7 +87,12 @@ namespace boost
                     var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
                     if (null != clangCompiler)
                     {
-                        clangCompiler.Visibility = ClangCommon.EVisibility.Default;
+                        clangCompiler.AllWarnings = true;
+                        clangCompiler.ExtraWarnings = true;
+                        clangCompiler.Pedantic = true;
+
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/wave/util/flex_string.hpp:292:16: error: unused parameter 'alloc'
                     }
                 });
 

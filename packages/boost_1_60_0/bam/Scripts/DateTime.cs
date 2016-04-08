@@ -45,6 +45,16 @@ namespace boost
             base.Init(parent);
 
             this.BoostSource.AddFiles("$(packagedir)/libs/date_time/src/gregorian/*.cpp");
+
+            this.PublicPatch((settings, appliedTo) =>
+                {
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("c++11-long-long"); // boost_1_60_0/boost/functional/hash/hash.hpp:241:32: error: 'long long' is a C++11 extension
+                    }
+                });
         }
     }
 }

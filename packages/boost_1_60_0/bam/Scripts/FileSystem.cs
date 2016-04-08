@@ -56,6 +56,17 @@ namespace boost
                         gccCompiler.ExtraWarnings = false;
                         gccCompiler.Pedantic = true;
                     }
+
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        clangCompiler.AllWarnings = true;
+                        clangCompiler.ExtraWarnings = true;
+                        clangCompiler.Pedantic = true;
+
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order'
+                    }
                 });
 
             if (this is C.Cxx.DynamicLibrary)
