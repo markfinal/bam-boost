@@ -59,6 +59,17 @@ namespace boost
             {
                 this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/pthread/thread.cpp");
                 this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/pthread/once.cpp");
+
+                this.BoostSource.PrivatePatch(settings =>
+                    {
+                        var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                        if (null != gccCompiler)
+                        {
+                            gccCompiler.AllWarnings = true;
+                            gccCompiler.ExtraWarnings = false;
+                            gccCompiler.Pedantic = true;
+                        }
+                    });
             }
 
             if (this is C.Cxx.DynamicLibrary)

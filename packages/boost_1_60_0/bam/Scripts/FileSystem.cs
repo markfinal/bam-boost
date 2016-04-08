@@ -47,6 +47,17 @@ namespace boost
             this.CreateHeaderContainer("$(packagedir)/libs/filesystem/src/*.hpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/filesystem/src/*.cpp");
 
+            this.BoostSource.PrivatePatch(settings =>
+                {
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
+                    {
+                        gccCompiler.AllWarnings = true;
+                        gccCompiler.ExtraWarnings = false;
+                        gccCompiler.Pedantic = true;
+                    }
+                });
+
             if (this is C.Cxx.DynamicLibrary)
             {
                 this.LinkAgainst<System>();
