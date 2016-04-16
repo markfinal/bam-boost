@@ -84,9 +84,7 @@ namespace boost
                 {
                     throw new Bam.Core.Exception("Unsupported version of VisualC, {0}", visualC.Version);
                 }
-                // TODO: check runtime library - if using a debug version, add 'd' as a suffix on the toolchain
-                // no prefix as it's not a static runtime
-                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-vc{1}-mt-1_60", this.Name, vcVer));
+                this.Macros["OutputName"] = this.CreateTokenizedString(string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-1_60", this.Name, vcVer));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
@@ -106,6 +104,22 @@ namespace boost
             this.BoostHeaders = this.CreateHeaderContainer(string.Format("$(packagedir)/boost/{0}/**.hpp", this.Name));
 
             this.BoostSource = this.CreateCxxSourceContainer();
+            this.BoostSource.PrivatePatch(settings =>
+                {
+                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                    if (null != vcCompiler)
+                    {
+                        var encapsulating = this.GetEncapsulatingReferencedModule();
+                        if (vcCompiler.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
+                        {
+                            encapsulating.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt-gd");
+                        }
+                        else
+                        {
+                            encapsulating.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt");
+                        }
+                    }
+                });
 
             this.PublicPatch((settings, appliedTo) =>
                 {
