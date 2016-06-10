@@ -104,11 +104,13 @@ namespace boost
             this.BoostHeaders = this.CreateHeaderContainer(string.Format("$(packagedir)/boost/{0}/**.hpp", this.Name));
 
             this.BoostSource = this.CreateCxxSourceContainer();
-            this.BoostSource.PrivatePatch(settings =>
+            this.BoostSource.ClosingPatch(settings =>
                 {
                     var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
                     if (null != vcCompiler)
                     {
+                        // boost_vc_mode is a macro used on the link step, so must use the encapsulating module of the source
+                        // (since it depends on a compilation property)
                         var encapsulating = this.GetEncapsulatingReferencedModule();
                         if (vcCompiler.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
                         {
