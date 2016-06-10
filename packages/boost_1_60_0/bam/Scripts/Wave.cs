@@ -118,6 +118,11 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("4100"); // boost_1_60_0\boost/wave/grammars/cpp_grammar.hpp(732) : warning C4100: 'act_pos' : unreferenced formal parameter
                         compiler.DisableWarnings.AddUnique("4702"); // boost_1_60_0\boost\wave\cpplexer\re2clex\cpp_re2c_lexer.hpp(327) : warning C4702: unreachable code
                         compiler.DisableWarnings.AddUnique("4706"); // boost_1_60_0\boost\wave\util\cpp_iterator.hpp(723) : warning C4706: assignment within conditional expression
+
+                        // vc2015
+                        compiler.DisableWarnings.AddUnique("4458"); // boost_1_60_0\boost/wave/util/flex_string.hpp(1805): warning C4458: declaration of 'pointer' hides class member
+                        compiler.DisableWarnings.AddUnique("4459"); // boost_1_60_0\boost/spirit/home/classic/core/scanner/impl/skipper.ipp(101): warning C4459: declaration of 'iter_policy_t' hides global declaration
+                        compiler.DisableWarnings.AddUnique("4477"); // boost_1_60_0\boost/wave/util/cpp_iterator.hpp(797): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'size_t'
                     }
                 });
         }
