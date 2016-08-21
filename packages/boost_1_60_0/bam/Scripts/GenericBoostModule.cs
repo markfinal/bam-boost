@@ -66,7 +66,7 @@ namespace boost
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
-                var visualC = Bam.Core.Graph.Instance.Packages.Where(item => item.Name == "VisualC").First();
+                var visualC = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "VisualC");
                 string vcVer = string.Empty;
                 if (visualC.Version == "14.0")
                 {
