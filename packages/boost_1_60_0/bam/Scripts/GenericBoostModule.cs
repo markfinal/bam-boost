@@ -96,8 +96,7 @@ namespace boost
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                // TODO: validate
-                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-1_60", this.Name));
+                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
             }
             else
             {
