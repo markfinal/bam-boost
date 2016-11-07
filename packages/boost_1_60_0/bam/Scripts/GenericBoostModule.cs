@@ -64,6 +64,10 @@ namespace boost
         {
             base.Init(parent);
 
+            this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
+            this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("6");
+            this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim("0");
+
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
                 var visualC = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "VisualC");
@@ -88,8 +92,7 @@ namespace boost
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                // TODO: validate
-                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}-1_60", this.Name));
+                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
