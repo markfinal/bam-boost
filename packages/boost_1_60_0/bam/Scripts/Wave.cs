@@ -102,10 +102,10 @@ namespace boost
 
             this.PublicPatch((settings, appliedTo) =>
                 {
+                    var compiler = settings as C.ICommonCompilerSettings;
                     var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
                     if (null != gccCompiler)
                     {
-                        var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("unused-local-typedefs"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:286:68: error: typedef 'iterator_t' locally defined but not used
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/wave/grammars/cpp_grammar.hpp:730:1: error: unused parameter 'act_pos'
                         compiler.DisableWarnings.AddUnique("missing-field-initializers"); // boost_1_60_0/boost/atomic/detail/bitwise_cast.hpp:39:14: error: missing initializer for member 'boost::atomics::detail::bitwise_cast(const From&) [with To = long unsigned int; From = void*]::<anonymous struct>::to'
@@ -113,7 +113,6 @@ namespace boost
                     var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
                     if (null != vcCompiler)
                     {
-                        var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("4245"); // boost_1_60_0\boost/wave/grammars/cpp_expression_grammar.hpp(376) : warning C4245: 'argument' : conversion from 'boost::wave::token_category' to 'unsigned long', signed/unsigned mismatch
                         compiler.DisableWarnings.AddUnique("4100"); // boost_1_60_0\boost/wave/grammars/cpp_grammar.hpp(732) : warning C4100: 'act_pos' : unreferenced formal parameter
                         compiler.DisableWarnings.AddUnique("4702"); // boost_1_60_0\boost\wave\cpplexer\re2clex\cpp_re2c_lexer.hpp(327) : warning C4702: unreachable code
@@ -123,6 +122,14 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("4458"); // boost_1_60_0\boost/wave/util/flex_string.hpp(1805): warning C4458: declaration of 'pointer' hides class member
                         compiler.DisableWarnings.AddUnique("4459"); // boost_1_60_0\boost/spirit/home/classic/core/scanner/impl/skipper.ipp(101): warning C4459: declaration of 'iter_policy_t' hides global declaration
                         compiler.DisableWarnings.AddUnique("4477"); // boost_1_60_0\boost/wave/util/cpp_iterator.hpp(797): warning C4477: 'sprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'size_t'
+                    }
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        if (this.BoostSource.Compiler.IsAtLeast(700))
+                        {
+                            compiler.DisableWarnings.AddUnique("unused-local-typedef"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:286:68: error: unused typedef 'iterator_t' [-Werror,-Wunused-local-typedef]
+                        }
                     }
                 });
         }
