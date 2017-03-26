@@ -64,11 +64,6 @@ namespace boost
                     if (null != gccCompiler)
                     {
                         gccCompiler.Visibility = GccCommon.EVisibility.Default;
-                        if (this.BoostSource.Compiler.IsAtLeast(5,4))
-                        {
-                            var compiler = settings as C.ICommonCompilerSettings;
-                            compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:159:18: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
-                        }
                     }
                     var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
                     if (null != clangCompiler)
@@ -114,6 +109,11 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("unused-local-typedefs"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:286:68: error: typedef 'iterator_t' locally defined but not used
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/wave/grammars/cpp_grammar.hpp:730:1: error: unused parameter 'act_pos'
                         compiler.DisableWarnings.AddUnique("missing-field-initializers"); // boost_1_60_0/boost/atomic/detail/bitwise_cast.hpp:39:14: error: missing initializer for member 'boost::atomics::detail::bitwise_cast(const From&) [with To = long unsigned int; From = void*]::<anonymous struct>::to'
+
+                        if (this.BoostSource.Compiler.IsAtLeast(5,4))
+                        {
+                            compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:159:18: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
+                        }
                     }
                     var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
                     if (null != vcCompiler)
