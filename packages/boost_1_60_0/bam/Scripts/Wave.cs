@@ -64,6 +64,11 @@ namespace boost
                     if (null != gccCompiler)
                     {
                         gccCompiler.Visibility = GccCommon.EVisibility.Default;
+                        if (this.BoostSource.Compiler.IsAtLeast(5,4))
+                        {
+                            var compiler = settings as C.ICommonCompilerSettings;
+                            compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:159:18: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
+                        }
                     }
                     var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
                     if (null != clangCompiler)

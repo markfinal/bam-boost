@@ -55,6 +55,19 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("c++11-long-long"); // boost_1_60_0/boost/functional/hash/hash.hpp:241:32: error: 'long long' is a C++11 extension
                     }
                 });
+
+            this.BoostSource.PrivatePatch(settings =>
+                {
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
+                    {
+                        if (this.BoostSource.Compiler.IsAtLeast(5,4))
+                        {
+                            var compiler = settings as C.ICommonCompilerSettings;
+                            compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/date_time/gregorian/greg_facet.hpp:293:12: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
+                        }
+                    }
+                });
         }
     }
 }
