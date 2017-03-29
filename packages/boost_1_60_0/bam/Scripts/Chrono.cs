@@ -49,6 +49,21 @@ namespace boost
             if (this is C.Cxx.DynamicLibrary)
             {
                 this.LinkAgainst<System>();
+
+                this.BoostSource.PrivatePatch(settings =>
+                    {
+                        if (this.BuildEnvironment.Configuration != Bam.Core.EConfiguration.Debug)
+                        {
+                            if (settings is GccCommon.ICommonCompilerSettings)
+                            {
+                                if (this.BoostSource.Compiler.IsAtLeast(5, 4))
+                                {
+                                    var compiler = settings as C.ICommonCompilerSettings;
+                                    compiler.DisableWarnings.AddUnique("unused-variable"); // boost_1_60_0/boost/system/error_code.hpp:221:36: error: 'boost::system::posix_category' defined but not used [-Werror=unused-variable]
+                                }
+                            }
+                        }
+                    });
             }
         }
     }
