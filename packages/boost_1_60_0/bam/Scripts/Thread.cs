@@ -31,7 +31,7 @@ using Bam.Core;
 namespace boost
 {
     [ModuleGroup("Thirdparty/Boost")]
-    sealed class Thread :
+    class Thread :
         GenericBoostModule
     {
         public Thread() :
