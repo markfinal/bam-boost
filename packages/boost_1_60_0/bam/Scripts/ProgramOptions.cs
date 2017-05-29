@@ -44,6 +44,17 @@ namespace boost
             base.Init(parent);
 
             this.BoostSource.AddFiles("$(packagedir)/libs/program_options/src/*.cpp");
+
+            this.BoostSource.PrivatePatch(settings =>
+                {
+                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
+                    if (null != vcCompiler)
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("4458"); // boost_1_60_0\libs\program_options\src\cmdline.cpp(104): warning C4458: declaration of 'args' hides class member
+                        compiler.DisableWarnings.AddUnique("4456"); // boost_1_60_0\libs\program_options\src\variables_map.cpp(71): warning C4456: declaration of 'original_token' hides previous local declaration
+                    }
+                });
         }
     }
 
