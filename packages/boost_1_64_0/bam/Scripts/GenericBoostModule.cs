@@ -67,7 +67,7 @@ namespace boost
 
             this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
             this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("6");
-            this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim("0");
+            this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim("4");
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
@@ -91,7 +91,12 @@ namespace boost
                 {
                     throw new Bam.Core.Exception("Unsupported version of VisualC, {0}", visualC.Version);
                 }
-                this.Macros["OutputName"] = this.CreateTokenizedString(string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-1_60", this.Name, vcVer));
+                this.Macros["OutputName"] = this.CreateTokenizedString(
+                    string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-1_{2}{3}",
+                                  this.Name,
+                                  vcVer,
+                                  this.Macros["MajorVersion"].Parse(),
+                                  this.Macros["MinorVersion"].Parse()));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
