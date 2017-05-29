@@ -110,6 +110,10 @@ namespace boost
 
                 this.TestSource.AddFiles("$(packagedir)/libs/thread/test/test_scheduler.cpp");
                 this.CompileAndLinkAgainst<Thread>(this.TestSource);
+                if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
+                {
+                    this.LinkAgainst<Atomic>(); // TODO: but not used at runtime?
+                }
 
                 this.PrivatePatch(settings =>
                     {
