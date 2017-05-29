@@ -54,6 +54,11 @@ namespace boost
                     {
                         compiler.DisableWarnings.AddUnique("4324"); // boost_1_60_0\libs\atomic\src\lockpool.cpp(69): warning C4324: 'boost::atomics::detail::`anonymous-namespace'::padded_lock<0>': structure was padded due to alignment specifier
                     }
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order' [-Werror,-Wunused-parameter]
+                    }
                 });
 
             this.PublicPatch((settings, appliedTo) =>
