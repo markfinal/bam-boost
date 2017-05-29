@@ -46,4 +46,36 @@ namespace boost
             this.BoostSource.AddFiles("$(packagedir)/libs/program_options/src/*.cpp");
         }
     }
+
+    namespace tests
+    {
+        class parsers_test :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/program_options/test/parsers_test.cpp");
+                this.CompileAndLinkAgainst<ProgramOptions>(this.TestSource);
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class ProgramOptionsTests :
+            Publisher.Collation
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                var anchor = this.Include<parsers_test>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
+                this.Include<ProgramOptions>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+            }
+        }
+    }
 }
