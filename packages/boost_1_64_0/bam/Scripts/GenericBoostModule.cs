@@ -92,11 +92,12 @@ namespace boost
                     throw new Bam.Core.Exception("Unsupported version of VisualC, {0}", visualC.Version);
                 }
                 this.Macros["OutputName"] = this.CreateTokenizedString(
-                    string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-1_{2}{3}",
+                    string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-{2}_{3}{4}",
                                   this.Name,
                                   vcVer,
                                   this.Macros["MajorVersion"].Parse(),
-                                  this.Macros["MinorVersion"].Parse()));
+                                  this.Macros["MinorVersion"].Parse(),
+                                  this.Macros["PatchVersion"].Parse()));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
