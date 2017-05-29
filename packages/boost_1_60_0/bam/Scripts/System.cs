@@ -30,7 +30,7 @@
 using Bam.Core;
 namespace boost
 {
-    [ModuleGroup("Thirdparty/Boost")]
+    [Bam.Core.ModuleGroup("Thirdparty/Boost")]
     class System :
         GenericBoostModule
     {
@@ -55,6 +55,129 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("unused-variable"); // boost_1_60_0/boost/system/error_code.hpp:221:36: error: 'boost::system::posix_category' defined but not used
                     }
                 });
+        }
+    }
+
+    namespace tests
+    {
+        class ErrorCodeTest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/error_code_test.cpp");
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class ErrorCodeUserTest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/error_code_user_test.cpp");
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class SystemErrorTest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/system_error_test.cpp");
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class DynamicLinkTest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/dynamic_link_test.cpp");
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/throw_test.cpp");
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class InitializationTest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/initialization_test.cpp");
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class HeaderOnlyTest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/header_only_test.cpp");
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class ConfigTest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/system/test/config_test.cpp");
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class SystemTests :
+            Publisher.Collation
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                var anchor = this.Include<ErrorCodeTest>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
+                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<ErrorCodeUserTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<SystemErrorTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<DynamicLinkTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<InitializationTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<HeaderOnlyTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<ConfigTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+            }
         }
     }
 }
