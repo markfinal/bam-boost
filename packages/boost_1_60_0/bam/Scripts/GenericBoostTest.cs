@@ -75,6 +75,16 @@ namespace boost
                         clangCompiler.Pedantic = false;
                     }
                 });
+
+            this.PrivatePatch(settings =>
+                {
+                    var gccLinker = settings as GccCommon.ICommonLinkerSettings;
+                    if (null != gccLinker)
+                    {
+                        gccLinker.CanUseOrigin = true;
+                        gccLinker.RPath.AddUnique("$ORIGIN");
+                    }
+                });
         }
     }
 }
