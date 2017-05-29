@@ -82,7 +82,7 @@ namespace boost
                 base.Init(parent);
 
                 this.TestSource.AddFiles("$(packagedir)/libs/date_time/test/testgregorian_calendar.cpp");
-                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<DateTime>(this.TestSource);
             }
         }
 
