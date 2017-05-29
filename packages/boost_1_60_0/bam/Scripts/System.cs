@@ -30,7 +30,6 @@
 using Bam.Core;
 namespace boost
 {
-    [Bam.Core.ModuleGroup("Thirdparty/Boost")]
     class System :
         GenericBoostModule
     {

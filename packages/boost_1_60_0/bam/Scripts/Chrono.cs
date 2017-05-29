@@ -30,7 +30,6 @@
 using Bam.Core;
 namespace boost
 {
-    [ModuleGroup("Thirdparty/Boost")]
     class Chrono :
         GenericBoostModule
     {

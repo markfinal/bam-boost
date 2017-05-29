@@ -31,6 +31,7 @@ using Bam.Core;
 using System.Linq;
 namespace boost
 {
+    [Bam.Core.ModuleGroup("Thirdparty/Boost")]
     abstract class GenericBoostModule :
         C.Cxx.DynamicLibrary
     {
