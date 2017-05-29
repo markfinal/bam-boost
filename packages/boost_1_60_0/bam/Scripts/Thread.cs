@@ -110,6 +110,16 @@ namespace boost
 
                 this.TestSource.AddFiles("$(packagedir)/libs/thread/test/test_scheduler.cpp");
                 this.CompileAndLinkAgainst<Thread>(this.TestSource);
+
+                this.PrivatePatch(settings =>
+                    {
+                        var gccLinker = settings as GccCommon.ICommonLinkerSettings;
+                        if (null != gccLinker)
+                        {
+                            var linker = settings as C.ICommonLinkerSettings;
+                            linker.Libraries.AddUnique("-lpthread");
+                        }
+                    });
             }
         }
 

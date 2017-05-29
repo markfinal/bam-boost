@@ -156,6 +156,16 @@ namespace boost
                 this.CompileAndLinkAgainst<ProgramOptions>(this.TestSource);
                 this.CompileAndLinkAgainst<FileSystem>(this.TestSource);
                 this.CompileAndLinkAgainst<Thread>(this.TestSource);
+
+                this.PrivatePatch(settings =>
+                    {
+                        var gccLinker = settings as GccCommon.ICommonLinkerSettings;
+                        if (null != gccLinker)
+                        {
+                            var linker = settings as C.ICommonLinkerSettings;
+                            linker.Libraries.AddUnique("-lpthread");
+                        }
+                    });
             }
         }
 
