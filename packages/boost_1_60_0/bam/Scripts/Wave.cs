@@ -138,4 +138,46 @@ namespace boost
                 });
         }
     }
+
+    namespace tests
+    {
+        class testwave :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/wave/test/testwave/testwave.cpp");
+                this.TestSource.AddFiles("$(packagedir)/libs/wave/test/testwave/testwave_app.cpp");
+                this.CompileAndLinkAgainst<Wave>(this.TestSource);
+                this.CompileAndLinkAgainst<ProgramOptions>(this.TestSource);
+                this.CompileAndLinkAgainst<FileSystem>(this.TestSource);
+                this.CompileAndLinkAgainst<Thread>(this.TestSource);
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class WaveTests :
+            Publisher.Collation
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                var anchor = this.Include<testwave>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
+                this.Include<Wave>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<ProgramOptions>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<FileSystem>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<Thread>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<Chrono>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<DateTime>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+            }
+        }
+    }
 }
