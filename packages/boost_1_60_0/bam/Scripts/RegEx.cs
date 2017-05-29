@@ -70,4 +70,41 @@ namespace boost
                     });
         }
     }
-}
+
+    namespace tests
+    {
+        class capturestest :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/regex/test/captures/*.cpp");
+                this.CompileAndLinkAgainst<RegEx>(this.TestSource);
+
+                this.TestSource.PrivatePatch(settings =>
+                    {
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.PreprocessorDefines.Add("BOOST_REGEX_MATCH_EXTRA", "1");
+                    });
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class RegExTests :
+            Publisher.Collation
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                var anchor = this.Include<capturestest>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
+                this.Include<RegEx>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+            }
+        }
+    }}
