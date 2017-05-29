@@ -145,6 +145,22 @@ namespace boost
                     {
                         vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level4;
                     }
+
+                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
+                    if (null != gccCompiler)
+                    {
+                        gccCompiler.AllWarnings = true;
+                        gccCompiler.ExtraWarnings = true;
+                        gccCompiler.Pedantic = true;
+                    }
+
+                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
+                    if (null != clangCompiler)
+                    {
+                        clangCompiler.AllWarnings = true;
+                        clangCompiler.ExtraWarnings = true;
+                        clangCompiler.Pedantic = true;
+                    }
                 });
 
             if (this.Linker is VisualCCommon.LinkerBase)
