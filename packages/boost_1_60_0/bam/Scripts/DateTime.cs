@@ -69,4 +69,38 @@ namespace boost
                 });
         }
     }
+
+    namespace tests
+    {
+        class testgregorian_calendar :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/date_time/test/testgregorian_calendar.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class DateTimeTests :
+            Publisher.Collation
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                var anchor = this.Include<testgregorian_calendar>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
+                this.Include<DateTime>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<Chrono>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+            }
+        }
+    }
 }
