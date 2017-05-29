@@ -107,4 +107,5 @@ namespace boost
                 this.Include<RegEx>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
-    }}
+    }
+}
