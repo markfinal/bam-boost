@@ -66,4 +66,225 @@ namespace boost
             }
         }
     }
+
+    namespace tests
+    {
+        class IntMax :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/intmax_c.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+            }
+        }
+
+        class OneObj :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/one_obj.cpp");
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/another_obj.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class Clock :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/clock/*.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class DurationArithmeticPass :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/arithmetic_pass.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+            }
+        }
+
+        class DurationComparisonsPass :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/comparisons_pass.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+            }
+        }
+
+        class DurationConstructorPass :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/constructor_pass.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+            }
+        }
+
+        class DurationCastPass :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/duration_cast_pass.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+            }
+        }
+
+        class DurationValuesPass :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/duration_values_pass.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+            }
+        }
+
+        class DurationRoundingPass :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/rounding_pass.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class IODurationInput :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/duration_input.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class IODurationOutput :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/duration_output.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class IOTimePointInput :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/time_point_input.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        class IOTimePointOutput :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/time_point_output.cpp");
+                this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                this.CompileAndLinkAgainst<System>(this.TestSource);
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class ChronoTests :
+            Publisher.Collation
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                var anchor = this.Include<IntMax>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
+                this.Include<Chrono>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<OneObj>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<Clock>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<DurationArithmeticPass>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<DurationComparisonsPass>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<DurationConstructorPass>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<DurationCastPass>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<DurationValuesPass>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<DurationRoundingPass>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<IODurationInput>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<IODurationOutput>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<IOTimePointInput>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+                this.Include<IOTimePointOutput>(C.Cxx.ConsoleApplication.Key, ".", anchor);
+            }
+        }
+    }
 }
