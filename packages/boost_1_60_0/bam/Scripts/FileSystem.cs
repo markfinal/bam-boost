@@ -82,4 +82,37 @@ namespace boost
             }
         }
     }
+
+    namespace tests
+    {
+        class locale_info :
+            GenericBoostTest
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                this.TestSource.AddFiles("$(packagedir)/libs/filesystem/test/locale_info.cpp");
+                this.CompileAndLinkAgainst<FileSystem>(this.TestSource);
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class FileSystemTests :
+            Publisher.Collation
+        {
+            protected override void
+            Init(
+                Bam.Core.Module parent)
+            {
+                base.Init(parent);
+
+                var anchor = this.Include<locale_info>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
+                this.Include<FileSystem>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
+            }
+        }
+    }
 }
