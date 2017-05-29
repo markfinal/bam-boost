@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageDefinition xsi:schemaLocation="http://www.buildamation.com ./Schema/BamPackageDefinitionV1.xsd" name="boost" version="1.64.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.buildamation.com">
+  <Description>Build scripts for Boost 1.64.0 (build from source)</Description>
+  <Dependents>
+    <Package name="C" />
+    <Package name="Clang" version="Xcode6" />
+    <Package name="Clang" version="Xcode8" default="true" />
+    <Package name="Gcc" version="4.8" default="true" />
+    <Package name="Gcc" version="5.4" />
+    <Package name="Mingw" version="4.8.1" />
+    <Package name="NativeBuilder" />
+    <Package name="Publisher" />
+    <Package name="VisualC" version="12.0" />
+    <Package name="VisualC" version="14.0" default="true" />
+    <Package name="VSSolutionBuilder" />
+    <Package name="XcodeBuilder" />
+  </Dependents>
+  <BamAssemblies>
+    <BamAssembly name="Bam.Core" major="1" minor="1" patch="1" />
+  </BamAssemblies>
+  <DotNetAssemblies>
+    <DotNetAssembly name="System" requiredTargetFramework="4.0.30319" />
+    <DotNetAssembly name="System.Xml" requiredTargetFramework="4.0.30319" />
+    <DotNetAssembly name="System.Core" requiredTargetFramework="4.0.30319" />
+  </DotNetAssemblies>
+  <SupportedPlatforms>
+    <Platform name="Windows" />
+    <Platform name="Linux" />
+    <Platform name="OSX" />
+  </SupportedPlatforms>
+</PackageDefinition>
