@@ -5,6 +5,7 @@ This repository only contains the Bam build scripts for Boost to build dynamic l
 Versions present:
 
 * boost-1.60.0
+* boost-1.64.0
 
 Download the [Boost source package](http://www.boost.org/users/download/) and extract into the appropriate package directory.
 
