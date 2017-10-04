@@ -31,10 +31,58 @@ using Bam.Core;
 using System.Linq;
 namespace boost
 {
+#if BAM_FEATURE_MODULE_CONFIGURATION
+    interface IConfigureBoost :
+        Bam.Core.IModuleConfiguration
+    {
+        bool EnableAutoLinking
+        {
+            get;
+        }
+    }
+
+    sealed class ConfigureBoost :
+        IConfigureBoost
+    {
+        public ConfigureBoost(
+            Bam.Core.Environment buildEnvironment)
+        {
+            this.EnableAutoLinking = true;
+        }
+
+        public bool EnableAutoLinking
+        {
+            get;
+            set;
+        }
+    }
+#endif
+
     [Bam.Core.ModuleGroup("Thirdparty/Boost")]
     abstract class GenericBoostModule :
         C.Cxx.DynamicLibrary
+#if BAM_FEATURE_MODULE_CONFIGURATION
+        , Bam.Core.IHasModuleConfiguration
+#endif
     {
+#if BAM_FEATURE_MODULE_CONFIGURATION
+        global::System.Type IHasModuleConfiguration.ReadOnlyInterfaceType
+        {
+            get
+            {
+                return typeof(IConfigureBoost);
+            }
+        }
+
+        global::System.Type IHasModuleConfiguration.WriteableClassType
+        {
+            get
+            {
+                return typeof(ConfigureBoost);
+            }
+        }
+#endif
+
         protected GenericBoostModule(
             string name)
         {
@@ -140,6 +188,13 @@ namespace boost
                     if (null != compiler)
                     {
                         compiler.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
+#if BAM_FEATURE_MODULE_CONFIGURATION
+                        var configuration = this.Configuration as IConfigureBoost;
+                        if (!configuration.EnableAutoLinking)
+                        {
+                            compiler.PreprocessorDefines.Add("BOOST_ALL_NO_LIB");
+                        }
+#endif
                         compiler.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
                     }
                 });
