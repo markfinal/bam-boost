@@ -143,9 +143,9 @@ namespace boost
                     string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-{2}_{3}{4}",
                                   this.Name,
                                   vcVer,
-                                  this.Macros["MajorVersion"].Parse(),
-                                  this.Macros["MinorVersion"].Parse(),
-                                  this.Macros["PatchVersion"].Parse()));
+                                  this.Macros["MajorVersion"].ToString(),
+                                  this.Macros["MinorVersion"].ToString(),
+                                  this.Macros["PatchVersion"].ToString()));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
