@@ -131,6 +131,8 @@ namespace boost
         sealed class ThreadTests :
             Publisher.Collation
         {
+#if D_NEW_PUBLISHING
+#else
             protected override void
             Init(
                 Bam.Core.Module parent)
@@ -143,6 +145,7 @@ namespace boost
                 this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
                 this.Include<Chrono>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
+#endif
         }
     }
 }

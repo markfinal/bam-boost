@@ -78,6 +78,8 @@ namespace boost
         sealed class ProgramOptionsTests :
             Publisher.Collation
         {
+#if D_NEW_PUBLISHING
+#else
             protected override void
             Init(
                 Bam.Core.Module parent)
@@ -87,6 +89,7 @@ namespace boost
                 var anchor = this.Include<parsers_test>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
                 this.Include<ProgramOptions>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
+#endif
         }
     }
 }

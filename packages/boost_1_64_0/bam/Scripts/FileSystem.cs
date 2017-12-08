@@ -103,6 +103,8 @@ namespace boost
         sealed class FileSystemTests :
             Publisher.Collation
         {
+#if D_NEW_PUBLISHING
+#else
             protected override void
             Init(
                 Bam.Core.Module parent)
@@ -113,6 +115,7 @@ namespace boost
                 this.Include<FileSystem>(C.Cxx.DynamicLibrary.Key, ".", anchor);
                 this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
+#endif
         }
     }
 }

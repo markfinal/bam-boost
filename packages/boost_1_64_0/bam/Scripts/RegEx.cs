@@ -97,6 +97,8 @@ namespace boost
         sealed class RegExTests :
             Publisher.Collation
         {
+#if D_NEW_PUBLISHING
+#else
             protected override void
             Init(
                 Bam.Core.Module parent)
@@ -106,6 +108,7 @@ namespace boost
                 var anchor = this.Include<capturestest>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
                 this.Include<RegEx>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
+#endif
         }
     }
 }
