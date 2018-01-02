@@ -158,12 +158,12 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class SystemTests :
             Publisher.Collation
         {
-#if D_NEW_PUBLISHING
-#else
             protected override void
             Init(
                 Bam.Core.Module parent)
@@ -179,7 +179,7 @@ namespace boost
                 this.Include<HeaderOnlyTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
                 this.Include<ConfigTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
             }
-#endif
         }
+#endif
     }
 }

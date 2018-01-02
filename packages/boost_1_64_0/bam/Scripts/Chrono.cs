@@ -259,12 +259,12 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class ChronoTests :
             Publisher.Collation
         {
-#if D_NEW_PUBLISHING
-#else
             protected override void
             Init(
                 Bam.Core.Module parent)
@@ -287,7 +287,7 @@ namespace boost
                 this.Include<IOTimePointInput>(C.Cxx.ConsoleApplication.Key, ".", anchor);
                 this.Include<IOTimePointOutput>(C.Cxx.ConsoleApplication.Key, ".", anchor);
             }
-#endif
         }
+#endif
     }
 }
