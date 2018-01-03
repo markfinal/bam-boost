@@ -58,7 +58,7 @@ namespace boost
             {
                 base.Init(parent);
 
-                this.SetDefaultMacros(EPublishingType.ConsoleApplication);
+                this.SetDefaultMacrosAndMappings(EPublishingType.ConsoleApplication);
 
                 this.IncludeAllModulesInNamespace("boost.tests", C.Cxx.ConsoleApplication.Key);
             }
