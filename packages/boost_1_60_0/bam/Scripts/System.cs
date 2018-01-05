@@ -158,6 +158,8 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class SystemTests :
             Publisher.Collation
@@ -178,5 +180,6 @@ namespace boost
                 this.Include<ConfigTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
             }
         }
+#endif
     }
 }

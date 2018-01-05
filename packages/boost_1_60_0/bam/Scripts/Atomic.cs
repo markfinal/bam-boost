@@ -88,6 +88,8 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class AtomicTests :
             Publisher.Collation
@@ -102,5 +104,6 @@ namespace boost
                 this.Include<Atomic>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
+#endif
     }
 }

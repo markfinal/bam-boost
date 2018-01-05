@@ -99,6 +99,8 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class FileSystemTests :
             Publisher.Collation
@@ -114,5 +116,6 @@ namespace boost
                 this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
+#endif
     }
 }

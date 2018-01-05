@@ -127,6 +127,8 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class ThreadTests :
             Publisher.Collation
@@ -144,5 +146,6 @@ namespace boost
                 this.Include<Chrono>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
+#endif
     }
 }

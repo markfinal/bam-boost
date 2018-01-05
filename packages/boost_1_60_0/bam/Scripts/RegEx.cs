@@ -93,6 +93,8 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class RegExTests :
             Publisher.Collation
@@ -107,5 +109,6 @@ namespace boost
                 this.Include<RegEx>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
+#endif
     }
 }

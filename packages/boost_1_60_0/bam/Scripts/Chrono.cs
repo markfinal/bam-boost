@@ -259,6 +259,8 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class ChronoTests :
             Publisher.Collation
@@ -286,5 +288,6 @@ namespace boost
                 this.Include<IOTimePointOutput>(C.Cxx.ConsoleApplication.Key, ".", anchor);
             }
         }
+#endif
     }
 }

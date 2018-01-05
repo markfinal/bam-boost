@@ -169,6 +169,8 @@ namespace boost
             }
         }
 
+#if D_NEW_PUBLISHING
+#else
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class WaveTests :
             Publisher.Collation
@@ -189,5 +191,6 @@ namespace boost
                 this.Include<DateTime>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
+#endif
     }
 }
