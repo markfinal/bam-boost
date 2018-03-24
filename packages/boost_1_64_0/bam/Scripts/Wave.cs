@@ -112,6 +112,10 @@ namespace boost
                         if (this.BoostSource.Compiler.IsAtLeast(5,4))
                         {
                             compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:159:18: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
+                            if (0 != (this.BuildEnvironment.Configuration & Bam.Core.EConfiguration.NotDebug))
+                            {
+                                compiler.DisableWarnings.AddUnique("strict-overflow"); // boost_1_64_0/boost/wave/grammars/cpp_expression_value.hpp:189:43: error: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Werror=strict-overflow]
+                            }
                         }
                     }
                     var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
