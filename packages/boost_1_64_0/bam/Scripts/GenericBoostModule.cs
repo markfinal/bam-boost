@@ -113,9 +113,7 @@ namespace boost
         {
             base.Init(parent);
 
-            this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
-            this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("6");
-            this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim("4");
+            this.SetSemanticVersion(1, 6, 4);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
