@@ -37,7 +37,8 @@ namespace boost
         {
             void
             IOverrideModuleConfiguration.execute(
-                IModuleConfiguration config)
+                IModuleConfiguration config,
+                Environment buildEnvironment)
             {
                 var boostConfig = config as ConfigureBoost;
                 if (null != boostConfig)
