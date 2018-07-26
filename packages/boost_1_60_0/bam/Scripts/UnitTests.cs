@@ -37,8 +37,8 @@ namespace boost
         {
             void
             IOverrideModuleConfiguration.execute(
-                IModuleConfiguration config,
-                Environment buildEnvironment)
+                Bam.Core.IModuleConfiguration config,
+                Bam.Core.Environment buildEnvironment)
             {
                 var boostConfig = config as ConfigureBoost;
                 if (null != boostConfig)

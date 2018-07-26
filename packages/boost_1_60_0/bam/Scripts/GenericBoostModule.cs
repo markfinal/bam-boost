@@ -113,9 +113,7 @@ namespace boost
         {
             base.Init(parent);
 
-            this.Macros["MajorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("1");
-            this.Macros["MinorVersion"] = Bam.Core.TokenizedString.CreateVerbatim("6");
-            this.Macros["PatchVersion"] = Bam.Core.TokenizedString.CreateVerbatim("0");
+            this.SetSemanticVersion(1, 6, 0);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {
@@ -139,7 +137,13 @@ namespace boost
                 {
                     throw new Bam.Core.Exception("Unsupported version of VisualC, {0}", visualC.Version);
                 }
-                this.Macros["OutputName"] = this.CreateTokenizedString(string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-1_60", this.Name, vcVer));
+                this.Macros["OutputName"] = this.CreateTokenizedString(
+                    string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-{2}_{3}{4}",
+                                  this.Name,
+                                  vcVer,
+                                  this.Macros["MajorVersion"].ToString(),
+                                  this.Macros["MinorVersion"].ToString(),
+                                  this.Macros["PatchVersion"].ToString()));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
@@ -183,11 +187,11 @@ namespace boost
                     {
                         compiler.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
 #if BAM_FEATURE_MODULE_CONFIGURATION
-                            var configuration = this.Configuration as IConfigureBoost;
-                            if (!configuration.EnableAutoLinking)
-                            {
-                                compiler.PreprocessorDefines.Add("BOOST_ALL_NO_LIB");
-                            }
+                        var configuration = this.Configuration as IConfigureBoost;
+                        if (!configuration.EnableAutoLinking)
+                        {
+                            compiler.PreprocessorDefines.Add("BOOST_ALL_NO_LIB");
+                        }
 #endif
                         compiler.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
                     }
