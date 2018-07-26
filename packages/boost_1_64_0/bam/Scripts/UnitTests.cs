@@ -48,7 +48,6 @@ namespace boost
             }
         }
 
-#if D_NEW_PUBLISHING
         [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
         sealed class BoostTests :
             Publisher.Collation
@@ -64,6 +63,5 @@ namespace boost
                 this.IncludeAllModulesInNamespace("boost.tests", C.Cxx.ConsoleApplication.Key);
             }
         }
-#endif
     }
 }

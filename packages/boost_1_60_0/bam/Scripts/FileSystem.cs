@@ -98,24 +98,5 @@ namespace boost
                 this.CompileAndLinkAgainst<FileSystem>(this.TestSource);
             }
         }
-
-#if D_NEW_PUBLISHING
-#else
-        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
-        sealed class FileSystemTests :
-            Publisher.Collation
-        {
-            protected override void
-            Init(
-                Bam.Core.Module parent)
-            {
-                base.Init(parent);
-
-                var anchor = this.Include<locale_info>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
-                this.Include<FileSystem>(C.Cxx.DynamicLibrary.Key, ".", anchor);
-                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
-            }
-        }
-#endif
     }
 }

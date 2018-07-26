@@ -87,23 +87,5 @@ namespace boost
                 this.CompileAndLinkAgainst<Atomic>(this.TestSource);
             }
         }
-
-#if D_NEW_PUBLISHING
-#else
-        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
-        sealed class AtomicTests :
-            Publisher.Collation
-        {
-            protected override void
-            Init(
-                Bam.Core.Module parent)
-            {
-                base.Init(parent);
-
-                var anchor = this.Include<lockfree>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
-                this.Include<Atomic>(C.Cxx.DynamicLibrary.Key, ".", anchor);
-            }
-        }
-#endif
     }
 }

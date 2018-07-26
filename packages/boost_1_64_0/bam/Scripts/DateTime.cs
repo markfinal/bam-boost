@@ -85,25 +85,5 @@ namespace boost
                 this.CompileAndLinkAgainst<DateTime>(this.TestSource);
             }
         }
-
-#if D_NEW_PUBLISHING
-#else
-        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
-        sealed class DateTimeTests :
-            Publisher.Collation
-        {
-            protected override void
-            Init(
-                Bam.Core.Module parent)
-            {
-                base.Init(parent);
-
-                var anchor = this.Include<testgregorian_calendar>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
-                this.Include<DateTime>(C.Cxx.DynamicLibrary.Key, ".", anchor);
-                this.Include<Chrono>(C.Cxx.DynamicLibrary.Key, ".", anchor);
-                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
-            }
-        }
-#endif
     }
 }
