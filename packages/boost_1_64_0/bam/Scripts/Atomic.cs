@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -85,21 +85,6 @@ namespace boost
 
                 this.TestSource.AddFiles("$(packagedir)/libs/atomic/test/lockfree.cpp");
                 this.CompileAndLinkAgainst<Atomic>(this.TestSource);
-            }
-        }
-
-        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
-        sealed class AtomicTests :
-            Publisher.Collation
-        {
-            protected override void
-            Init(
-                Bam.Core.Module parent)
-            {
-                base.Init(parent);
-
-                var anchor = this.Include<lockfree>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
-                this.Include<Atomic>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
     }

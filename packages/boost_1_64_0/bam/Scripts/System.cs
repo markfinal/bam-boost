@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -155,27 +155,6 @@ namespace boost
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/config_test.cpp");
                 this.CompileAndLinkAgainst<System>(this.TestSource);
-            }
-        }
-
-        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
-        sealed class SystemTests :
-            Publisher.Collation
-        {
-            protected override void
-            Init(
-                Bam.Core.Module parent)
-            {
-                base.Init(parent);
-
-                var anchor = this.Include<ErrorCodeTest>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
-                this.Include<System>(C.Cxx.DynamicLibrary.Key, ".", anchor);
-                this.Include<ErrorCodeUserTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
-                this.Include<SystemErrorTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
-                this.Include<DynamicLinkTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
-                this.Include<InitializationTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
-                this.Include<HeaderOnlyTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
-                this.Include<ConfigTest>(C.Cxx.ConsoleApplication.Key, ".", anchor);
             }
         }
     }

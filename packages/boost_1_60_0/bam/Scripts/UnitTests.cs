@@ -30,38 +30,27 @@
 using Bam.Core;
 namespace boost
 {
-    class ProgramOptions :
-        GenericBoostModule
-    {
-        public ProgramOptions() :
-            base("program_options")
-        {}
-
-        protected override void
-        Init(
-            Module parent)
-        {
-            base.Init(parent);
-
-            this.BoostSource.AddFiles("$(packagedir)/libs/program_options/src/*.cpp");
-
-            this.BoostSource.PrivatePatch(settings =>
-                {
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
-                    {
-                        var compiler = settings as C.ICommonCompilerSettings;
-                        compiler.DisableWarnings.AddUnique("4458"); // boost_1_60_0\libs\program_options\src\cmdline.cpp(104): warning C4458: declaration of 'args' hides class member
-                        compiler.DisableWarnings.AddUnique("4456"); // boost_1_60_0\libs\program_options\src\variables_map.cpp(71): warning C4456: declaration of 'original_token' hides previous local declaration
-                    }
-                });
-        }
-    }
-
     namespace tests
     {
-        class parsers_test :
-            GenericBoostTest
+        sealed class ConfigureModules :
+            Bam.Core.IOverrideModuleConfiguration
+        {
+            void
+            IOverrideModuleConfiguration.execute(
+                Bam.Core.IModuleConfiguration config,
+                Bam.Core.Environment buildEnvironment)
+            {
+                var boostConfig = config as ConfigureBoost;
+                if (null != boostConfig)
+                {
+                    boostConfig.EnableAutoLinking = false;
+                }
+            }
+        }
+
+        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
+        sealed class BoostTests :
+            Publisher.Collation
         {
             protected override void
             Init(
@@ -69,8 +58,9 @@ namespace boost
             {
                 base.Init(parent);
 
-                this.TestSource.AddFiles("$(packagedir)/libs/program_options/test/parsers_test.cpp");
-                this.CompileAndLinkAgainst<ProgramOptions>(this.TestSource);
+                this.SetDefaultMacrosAndMappings(EPublishingType.ConsoleApplication);
+
+                this.IncludeAllModulesInNamespace("boost.tests", C.Cxx.ConsoleApplication.Key);
             }
         }
     }

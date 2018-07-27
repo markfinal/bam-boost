@@ -113,7 +113,7 @@ namespace boost
         {
             base.Init(parent);
 
-            this.SetSemanticVersion(1, 6, 4);
+            this.SetSemanticVersion(1, 6, 7);
 
             if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
             {

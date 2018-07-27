@@ -1,5 +1,5 @@
 #region License
-// Copyright (c) 2010-2017, Mark Final
+// Copyright (c) 2010-2018, Mark Final
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -90,21 +90,6 @@ namespace boost
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.PreprocessorDefines.Add("BOOST_REGEX_MATCH_EXTRA", "1");
                     });
-            }
-        }
-
-        [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
-        sealed class RegExTests :
-            Publisher.Collation
-        {
-            protected override void
-            Init(
-                Bam.Core.Module parent)
-            {
-                base.Init(parent);
-
-                var anchor = this.Include<capturestest>(C.Cxx.ConsoleApplication.Key, EPublishingType.ConsoleApplication);
-                this.Include<RegEx>(C.Cxx.DynamicLibrary.Key, ".", anchor);
             }
         }
     }
