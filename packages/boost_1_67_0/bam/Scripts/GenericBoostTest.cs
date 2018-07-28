@@ -51,6 +51,8 @@ namespace boost
             this.TestSource.PrivatePatch(settings =>
                 {
                     var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
+                    cxxCompiler.LanguageStandard = C.Cxx.ELanguageStandard.Cxx11;
+                    cxxCompiler.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
                     cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
 
                     var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
@@ -78,6 +80,11 @@ namespace boost
 
             this.PrivatePatch(settings =>
                 {
+                    var cxxLinker = settings as C.ICxxOnlyLinkerSettings;
+                    if (null != cxxLinker)
+                    {
+                        cxxLinker.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
+                    }
                     var gccLinker = settings as GccCommon.ICommonLinkerSettings;
                     if (null != gccLinker)
                     {
