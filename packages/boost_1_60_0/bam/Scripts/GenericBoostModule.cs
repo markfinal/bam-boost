@@ -31,7 +31,6 @@ using Bam.Core;
 using System.Linq;
 namespace boost
 {
-#if BAM_FEATURE_MODULE_CONFIGURATION
     interface IConfigureBoost :
         Bam.Core.IModuleConfiguration
     {
@@ -56,16 +55,12 @@ namespace boost
             set;
         }
     }
-#endif
 
     [Bam.Core.ModuleGroup("Thirdparty/Boost")]
     abstract class GenericBoostModule :
-        C.Cxx.DynamicLibrary
-#if BAM_FEATURE_MODULE_CONFIGURATION
-        , Bam.Core.IHasModuleConfiguration
-#endif
+        C.Cxx.DynamicLibrary,
+        Bam.Core.IHasModuleConfiguration
     {
-#if BAM_FEATURE_MODULE_CONFIGURATION
         global::System.Type IHasModuleConfiguration.ReadOnlyInterfaceType
         {
             get
@@ -81,7 +76,6 @@ namespace boost
                 return typeof(ConfigureBoost);
             }
         }
-#endif
 
         protected GenericBoostModule(
             string name)
@@ -186,13 +180,11 @@ namespace boost
                     if (null != compiler)
                     {
                         compiler.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
-#if BAM_FEATURE_MODULE_CONFIGURATION
                         var configuration = this.Configuration as IConfigureBoost;
                         if (!configuration.EnableAutoLinking)
                         {
                             compiler.PreprocessorDefines.Add("BOOST_ALL_NO_LIB");
                         }
-#endif
                         compiler.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
                     }
                 });
