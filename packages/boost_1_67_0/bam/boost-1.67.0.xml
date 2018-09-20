@@ -11,6 +11,7 @@
     <Package name="Clang" version="Xcode9" />
     <Package name="Gcc" version="4.8" default="true" />
     <Package name="Gcc" version="5.4" />
+    <Package name="MakeFileBuilder" />
     <Package name="Mingw" version="4.8.1" />
     <Package name="NativeBuilder" />
     <Package name="Publisher" />
@@ -23,7 +24,7 @@
     <Package name="XcodeBuilder" />
   </Dependents>
   <BamAssemblies>
-    <BamAssembly name="Bam.Core" major="1" minor="2" patch="0" />
+    <BamAssembly name="Bam.Core" major="2" minor="0" patch="0" />
   </BamAssemblies>
   <DotNetAssemblies>
     <DotNetAssembly name="System" requiredTargetFramework="4.0.30319" />
