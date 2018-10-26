@@ -60,7 +60,7 @@ namespace boost
                     var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
                     if (null != gccCompiler)
                     {
-                        if (this.BoostSource.Compiler.IsAtLeast(5,4))
+                        if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_5))
                         {
                             var compiler = settings as C.ICommonCompilerSettings;
                             compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/date_time/gregorian/greg_facet.hpp:293:12: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
