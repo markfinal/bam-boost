@@ -109,7 +109,7 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/wave/grammars/cpp_grammar.hpp:730:1: error: unused parameter 'act_pos'
                         compiler.DisableWarnings.AddUnique("missing-field-initializers"); // boost_1_60_0/boost/atomic/detail/bitwise_cast.hpp:39:14: error: missing initializer for member 'boost::atomics::detail::bitwise_cast(const From&) [with To = long unsigned int; From = void*]::<anonymous struct>::to'
 
-                        if (this.BoostSource.Compiler.IsAtLeast(5,4))
+                        if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_5))
                         {
                             compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:159:18: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
                             if (0 != (this.BuildEnvironment.Configuration & Bam.Core.EConfiguration.NotDebug))
@@ -134,7 +134,7 @@ namespace boost
                     var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
                     if (null != clangCompiler)
                     {
-                        if (this.BoostSource.Compiler.IsAtLeast(700))
+                        if (this.BoostSource.Compiler.Version.AtLeast(ClangCommon.ToolchainVersion.Xcode_7))
                         {
                             compiler.DisableWarnings.AddUnique("unused-local-typedef"); // boost_1_60_0/boost/spirit/home/classic/core/non_terminal/impl/grammar.ipp:286:68: error: unused typedef 'iterator_t' [-Werror,-Wunused-local-typedef]
                         }
