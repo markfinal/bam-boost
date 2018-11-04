@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageDefinition xsi:schemaLocation="http://www.buildamation.com ./Schema/BamPackageDefinitionV1.xsd" name="boost" version="1.64.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.buildamation.com">
   <Description>Build scripts for Boost 1.64.0 (build from source)</Description>
+  <Sources>
+    <Source type="http" path="https://sourceforge.net/projects/boost/files/boost/1.64.0/boost_1_64_0.tar.gz/download" subdir="boost_1_64_0" />
+  </Sources>
   <Dependents>
     <Package name="C" />
     <Package name="Clang" version="Xcode4" />
