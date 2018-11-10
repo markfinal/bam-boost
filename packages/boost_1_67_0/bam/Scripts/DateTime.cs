@@ -27,7 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using Bam.Core;
 namespace boost
 {
     class DateTime :
@@ -39,7 +38,7 @@ namespace boost
 
         protected override void
         Init(
-            Module parent)
+            Bam.Core.Module parent)
         {
             base.Init(parent);
 
@@ -47,8 +46,7 @@ namespace boost
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                    if (null != clangCompiler)
+                    if (settings is ClangCommon.ICommonCompilerSettings)
                     {
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("c++11-long-long"); // boost_1_60_0/boost/functional/hash/hash.hpp:241:32: error: 'long long' is a C++11 extension
@@ -57,8 +55,7 @@ namespace boost
 
             this.BoostSource.PrivatePatch(settings =>
                 {
-                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
-                    if (null != gccCompiler)
+                    if (settings is GccCommon.ICommonCompilerSettings)
                     {
                         if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_5))
                         {
@@ -72,7 +69,7 @@ namespace boost
 
     namespace tests
     {
-        class testgregorian_calendar :
+        class Testgregorian_calendar :
             GenericBoostTest
         {
             protected override void

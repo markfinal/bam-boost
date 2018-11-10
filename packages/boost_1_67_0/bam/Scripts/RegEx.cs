@@ -27,7 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using Bam.Core;
 namespace boost
 {
     class RegEx :
@@ -39,7 +38,7 @@ namespace boost
 
         protected override void
         Init(
-            Module parent)
+            Bam.Core.Module parent)
         {
             base.Init(parent);
 
@@ -47,33 +46,27 @@ namespace boost
 
             this.BoostSource.PrivatePatch(settings =>
                 {
-                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                    if (null != clangCompiler)
+                    if (settings is ClangCommon.ICommonCompilerSettings clangCompiler)
                     {
                         clangCompiler.Visibility = ClangCommon.EVisibility.Default; // TODO: don't know why, but templated do_assign functions were missing at link without this
-
-                        clangCompiler.AllWarnings = true;
-                        clangCompiler.ExtraWarnings = true;
-                        clangCompiler.Pedantic = true;
                     }
                 });
 
-                this.PublicPatch((settings, appliedTo) =>
+            this.PublicPatch((settings, appliedTo) =>
+                {
+                    if (settings is ClangCommon.ICommonCompilerSettings)
                     {
-                        var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                        if (null != clangCompiler)
-                        {
-                            var compiler = settings as C.ICommonCompilerSettings;
-                            compiler.DisableWarnings.AddUnique("c++11-long-long"); // boost_1_60_0/boost/functional/hash/hash.hpp:241:32: error: 'long long' is a C++11 extension
-                            compiler.DisableWarnings.AddUnique("unknown-pragmas"); // boost_1_60_0/boost/regex/v4/instances.hpp:124:34: error: unknown warning group '-Wkeyword-macro', ignored
-                        }
-                    });
+                        var compiler = settings as C.ICommonCompilerSettings;
+                        compiler.DisableWarnings.AddUnique("c++11-long-long"); // boost_1_60_0/boost/functional/hash/hash.hpp:241:32: error: 'long long' is a C++11 extension
+                        compiler.DisableWarnings.AddUnique("unknown-pragmas"); // boost_1_60_0/boost/regex/v4/instances.hpp:124:34: error: unknown warning group '-Wkeyword-macro', ignored
+                    }
+                });
         }
     }
 
     namespace tests
     {
-        class capturestest :
+        class Capturestest :
             GenericBoostTest
         {
             protected override void
