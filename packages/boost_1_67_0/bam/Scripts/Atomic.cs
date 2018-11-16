@@ -27,7 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using Bam.Core;
 namespace boost
 {
     class Atomic :
@@ -39,7 +38,7 @@ namespace boost
 
         protected override void
         Init(
-            Module parent)
+            Bam.Core.Module parent)
         {
             base.Init(parent);
 
@@ -49,13 +48,11 @@ namespace boost
                 {
                     var compiler = settings as C.ICommonCompilerSettings;
                     compiler.PreprocessorDefines.Add("BOOST_ATOMIC_SOURCE");
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
+                    if (settings is VisualCCommon.ICommonCompilerSettings)
                     {
                         compiler.DisableWarnings.AddUnique("4324"); // boost_1_60_0\libs\atomic\src\lockpool.cpp(69): warning C4324: 'boost::atomics::detail::`anonymous-namespace'::padded_lock<0>': structure was padded due to alignment specifier
                     }
-                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                    if (null != clangCompiler)
+                    if (settings is ClangCommon.ICommonCompilerSettings)
                     {
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order' [-Werror,-Wunused-parameter]
                     }
@@ -63,8 +60,7 @@ namespace boost
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    var compiler = settings as C.ICommonCompilerSettings;
-                    if (null != compiler)
+                    if (settings is C.ICommonCompilerSettings compiler)
                     {
                         compiler.PreprocessorDefines.Add("BOOST_ATOMIC_DYN_LINK");
                     }
@@ -74,7 +70,7 @@ namespace boost
 
     namespace tests
     {
-        class lockfree :
+        class Lockfree :
             GenericBoostTest
         {
             protected override void

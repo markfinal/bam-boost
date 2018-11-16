@@ -27,7 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using Bam.Core;
 namespace boost
 {
     namespace tests
@@ -36,12 +35,11 @@ namespace boost
             Bam.Core.IOverrideModuleConfiguration
         {
             void
-            IOverrideModuleConfiguration.execute(
+            Bam.Core.IOverrideModuleConfiguration.execute(
                 Bam.Core.IModuleConfiguration config,
                 Bam.Core.Environment buildEnvironment)
             {
-                var boostConfig = config as ConfigureBoost;
-                if (null != boostConfig)
+                if (config is ConfigureBoost boostConfig)
                 {
                     boostConfig.EnableAutoLinking = false;
                 }

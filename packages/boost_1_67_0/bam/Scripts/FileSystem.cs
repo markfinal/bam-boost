@@ -27,7 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using Bam.Core;
 namespace boost
 {
     class FileSystem :
@@ -39,7 +38,7 @@ namespace boost
 
         protected override void
         Init(
-            Module parent)
+            Bam.Core.Module parent)
         {
             base.Init(parent);
 
@@ -48,27 +47,18 @@ namespace boost
 
             this.BoostSource.PrivatePatch(settings =>
                 {
-                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
-                    if (null != gccCompiler)
+                    if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                     {
-                        gccCompiler.AllWarnings = true;
                         gccCompiler.ExtraWarnings = false;
-                        gccCompiler.Pedantic = true;
                     }
 
-                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                    if (null != clangCompiler)
+                    if (settings is ClangCommon.ICommonCompilerSettings clangCompiler)
                     {
-                        clangCompiler.AllWarnings = true;
-                        clangCompiler.ExtraWarnings = true;
-                        clangCompiler.Pedantic = true;
-
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order'
                     }
 
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
+                    if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
                     {
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("4267"); // boost_1_60_0\libs\filesystem\src\unique_path.cpp(112) : warning C4267: 'argument' : conversion from 'size_t' to 'DWORD', possible loss of data
@@ -85,7 +75,7 @@ namespace boost
 
     namespace tests
     {
-        class locale_info :
+        class Locale_info :
             GenericBoostTest
         {
             protected override void

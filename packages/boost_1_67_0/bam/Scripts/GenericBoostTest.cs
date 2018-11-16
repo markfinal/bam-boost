@@ -27,8 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using Bam.Core;
-using System.Linq;
 namespace boost
 {
     [Bam.Core.ModuleGroup("Thirdparty/Boost/tests")]
@@ -55,22 +53,19 @@ namespace boost
                     cxxCompiler.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
                     cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
 
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
+                    if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
                     {
                         vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level1;
                     }
 
-                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
-                    if (null != gccCompiler)
+                    if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                     {
                         gccCompiler.AllWarnings = false;
                         gccCompiler.ExtraWarnings = false;
                         gccCompiler.Pedantic = false;
                     }
 
-                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                    if (null != clangCompiler)
+                    if (settings is ClangCommon.ICommonCompilerSettings clangCompiler)
                     {
                         clangCompiler.AllWarnings = false;
                         clangCompiler.ExtraWarnings = false;
@@ -80,13 +75,11 @@ namespace boost
 
             this.PrivatePatch(settings =>
                 {
-                    var cxxLinker = settings as C.ICxxOnlyLinkerSettings;
-                    if (null != cxxLinker)
+                    if (settings is C.ICxxOnlyLinkerSettings cxxLinker)
                     {
                         cxxLinker.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
                     }
-                    var gccLinker = settings as GccCommon.ICommonLinkerSettings;
-                    if (null != gccLinker)
+                    if (settings is GccCommon.ICommonLinkerSettings gccLinker)
                     {
                         gccLinker.CanUseOrigin = true;
                         gccLinker.RPath.AddUnique("$ORIGIN");

@@ -34,26 +34,16 @@ namespace boost
     interface IConfigureBoost :
         Bam.Core.IModuleConfiguration
     {
-        bool EnableAutoLinking
-        {
-            get;
-        }
+        bool EnableAutoLinking { get; }
     }
 
     sealed class ConfigureBoost :
         IConfigureBoost
     {
         public ConfigureBoost(
-            Bam.Core.Environment buildEnvironment)
-        {
-            this.EnableAutoLinking = true;
-        }
+            Bam.Core.Environment buildEnvironment) => this.EnableAutoLinking = true;
 
-        public bool EnableAutoLinking
-        {
-            get;
-            set;
-        }
+        public bool EnableAutoLinking { get; set; }
     }
 
     [Bam.Core.ModuleGroup("Thirdparty/Boost")]
@@ -61,45 +51,15 @@ namespace boost
         C.Cxx.DynamicLibrary,
         Bam.Core.IHasModuleConfiguration
     {
-        global::System.Type IHasModuleConfiguration.ReadOnlyInterfaceType
-        {
-            get
-            {
-                return typeof(IConfigureBoost);
-            }
-        }
-
-        global::System.Type IHasModuleConfiguration.WriteableClassType
-        {
-            get
-            {
-                return typeof(ConfigureBoost);
-            }
-        }
+        global::System.Type Bam.Core.IHasModuleConfiguration.ReadOnlyInterfaceType => typeof(IConfigureBoost);
+        global::System.Type Bam.Core.IHasModuleConfiguration.WriteableClassType => typeof(ConfigureBoost);
 
         protected GenericBoostModule(
-            string name)
-        {
-            this.Name = name;
-        }
+            string name) => this.Name = name;
 
-        private string Name
-        {
-            get;
-            set;
-        }
-
-        protected C.Cxx.ObjectFileCollection BoostSource
-        {
-            get;
-            private set;
-        }
-
-        protected C.HeaderFileCollection BoostHeaders
-        {
-            get;
-            private set;
-        }
+        private string Name { get; set; }
+        protected C.Cxx.ObjectFileCollection BoostSource { get; private set; }
+        protected C.HeaderFileCollection BoostHeaders { get; private set; }
 
         protected override void
         Init(
@@ -129,7 +89,7 @@ namespace boost
                 }
                 else
                 {
-                    throw new Bam.Core.Exception("Unsupported version of VisualC, {0}", visualC.Version);
+                    throw new Bam.Core.Exception($"Unsupported version of VisualC, {visualC.Version}");
                 }
                 this.Macros["OutputName"] = this.CreateTokenizedString(
                     string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-{2}_{3}{4}",
@@ -157,8 +117,7 @@ namespace boost
             this.BoostSource = this.CreateCxxSourceContainer();
             this.BoostSource.ClosingPatch(settings =>
                 {
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
+                    if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
                     {
                         // boost_vc_mode is a macro used on the link step, so must use the encapsulating module of the source
                         // (since it depends on a compilation property)
@@ -176,8 +135,7 @@ namespace boost
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    var compiler = settings as C.ICommonCompilerSettings;
-                    if (null != compiler)
+                    if (settings is C.ICommonCompilerSettings compiler)
                     {
                         compiler.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
                         var configuration = this.Configuration as IConfigureBoost;
@@ -196,22 +154,19 @@ namespace boost
                     cxxCompiler.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
                     cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
 
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
+                    if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
                     {
                         vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level4;
                     }
 
-                    var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
-                    if (null != gccCompiler)
+                    if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                     {
                         gccCompiler.AllWarnings = true;
                         gccCompiler.ExtraWarnings = true;
                         gccCompiler.Pedantic = true;
                     }
 
-                    var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                    if (null != clangCompiler)
+                    if (settings is ClangCommon.ICommonCompilerSettings clangCompiler)
                     {
                         clangCompiler.AllWarnings = true;
                         clangCompiler.ExtraWarnings = true;
@@ -221,8 +176,7 @@ namespace boost
 
             this.PrivatePatch(settings =>
                 {
-                    var cxxLinker = settings as C.ICxxOnlyLinkerSettings;
-                    if (null != cxxLinker)
+                    if (settings is C.ICxxOnlyLinkerSettings cxxLinker)
                     {
                         cxxLinker.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
                     }

@@ -39,7 +39,7 @@ namespace boost
 
         protected override void
         Init(
-            Module parent)
+            Bam.Core.Module parent)
         {
             base.Init(parent);
 
@@ -53,8 +53,7 @@ namespace boost
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.PreprocessorDefines.Add("BOOST_THREAD_BUILD_DLL"); // not _LIB, as this is a dynamic library
 
-                        var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                        if (null != vcCompiler)
+                        if (settings is VisualCCommon.ICommonCompilerSettings)
                         {
                             compiler.DisableWarnings.AddUnique("4100"); // boost_1_60_0\libs\thread\src\win32\thread.cpp(654) : warning C4100: 'TolerableDelay' : unreferenced formal parameter
                         }
@@ -67,21 +66,13 @@ namespace boost
 
                 this.BoostSource.PrivatePatch(settings =>
                     {
-                        var gccCompiler = settings as GccCommon.ICommonCompilerSettings;
-                        if (null != gccCompiler)
+                        if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                         {
-                            gccCompiler.AllWarnings = true;
                             gccCompiler.ExtraWarnings = false;
-                            gccCompiler.Pedantic = true;
                         }
 
-                        var clangCompiler = settings as ClangCommon.ICommonCompilerSettings;
-                        if (null != clangCompiler)
+                        if (settings is ClangCommon.ICommonCompilerSettings)
                         {
-                            clangCompiler.AllWarnings = true;
-                            clangCompiler.ExtraWarnings = true;
-                            clangCompiler.Pedantic = true;
-
                             var compiler = settings as C.ICommonCompilerSettings;
                             compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order'
                         }
@@ -99,7 +90,7 @@ namespace boost
 
     namespace tests
     {
-        class test_scheduler :
+        class Test_scheduler :
             GenericBoostTest
         {
             protected override void
@@ -117,8 +108,7 @@ namespace boost
 
                 this.PrivatePatch(settings =>
                     {
-                        var gccLinker = settings as GccCommon.ICommonLinkerSettings;
-                        if (null != gccLinker)
+                        if (settings is GccCommon.ICommonLinkerSettings)
                         {
                             var linker = settings as C.ICommonLinkerSettings;
                             linker.Libraries.AddUnique("-lpthread");

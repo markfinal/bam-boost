@@ -27,7 +27,6 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
-using Bam.Core;
 namespace boost
 {
     class ProgramOptions :
@@ -39,7 +38,7 @@ namespace boost
 
         protected override void
         Init(
-            Module parent)
+            Bam.Core.Module parent)
         {
             base.Init(parent);
 
@@ -47,8 +46,7 @@ namespace boost
 
             this.BoostSource.PrivatePatch(settings =>
                 {
-                    var vcCompiler = settings as VisualCCommon.ICommonCompilerSettings;
-                    if (null != vcCompiler)
+                    if (settings is VisualCCommon.ICommonCompilerSettings)
                     {
                         var compiler = settings as C.ICommonCompilerSettings;
                         compiler.DisableWarnings.AddUnique("4458"); // boost_1_60_0\libs\program_options\src\cmdline.cpp(104): warning C4458: declaration of 'args' hides class member
@@ -60,7 +58,7 @@ namespace boost
 
     namespace tests
     {
-        class parsers_test :
+        class Parsers_test :
             GenericBoostTest
         {
             protected override void
