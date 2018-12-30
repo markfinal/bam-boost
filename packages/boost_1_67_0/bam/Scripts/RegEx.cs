@@ -80,8 +80,8 @@ namespace boost
 
                 this.TestSource.PrivatePatch(settings =>
                     {
-                        var compiler = settings as C.ICommonCompilerSettings;
-                        compiler.PreprocessorDefines.Add("BOOST_REGEX_MATCH_EXTRA", "1");
+                        var preprocessor = settings as C.ICommonPreprocessorSettings;
+                        preprocessor.PreprocessorDefines.Add("BOOST_REGEX_MATCH_EXTRA", "1");
                     });
             }
         }

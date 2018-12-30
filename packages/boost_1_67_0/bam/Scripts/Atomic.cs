@@ -46,8 +46,10 @@ namespace boost
 
             this.BoostSource.PrivatePatch(settings =>
                 {
+                    var preprocessor = settings as C.ICommonPreprocessorSettings;
+                    preprocessor.PreprocessorDefines.Add("BOOST_ATOMIC_SOURCE");
+
                     var compiler = settings as C.ICommonCompilerSettings;
-                    compiler.PreprocessorDefines.Add("BOOST_ATOMIC_SOURCE");
                     if (settings is VisualCCommon.ICommonCompilerSettings)
                     {
                         compiler.DisableWarnings.AddUnique("4324"); // boost_1_60_0\libs\atomic\src\lockpool.cpp(69): warning C4324: 'boost::atomics::detail::`anonymous-namespace'::padded_lock<0>': structure was padded due to alignment specifier
@@ -60,9 +62,9 @@ namespace boost
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    if (settings is C.ICommonCompilerSettings compiler)
+                    if (settings is C.ICommonPreprocessorSettings preprocessor)
                     {
-                        compiler.PreprocessorDefines.Add("BOOST_ATOMIC_DYN_LINK");
+                        preprocessor.PreprocessorDefines.Add("BOOST_ATOMIC_DYN_LINK");
                     }
                 });
         }

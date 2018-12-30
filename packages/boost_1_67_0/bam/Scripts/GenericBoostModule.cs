@@ -135,15 +135,15 @@ namespace boost
 
             this.PublicPatch((settings, appliedTo) =>
                 {
-                    if (settings is C.ICommonCompilerSettings compiler)
+                    if (settings is C.ICommonPreprocessorSettings preprocessor)
                     {
-                        compiler.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
+                        preprocessor.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
                         var configuration = this.Configuration as IConfigureBoost;
                         if (!configuration.EnableAutoLinking)
                         {
-                            compiler.PreprocessorDefines.Add("BOOST_ALL_NO_LIB");
+                            preprocessor.PreprocessorDefines.Add("BOOST_ALL_NO_LIB");
                         }
-                        compiler.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
+                        preprocessor.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
                     }
                 });
 
