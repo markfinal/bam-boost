@@ -28,6 +28,15 @@ namespace ThreadTest1
                 var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
                 cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
             });
+
+            this.PrivatePatch(settings =>
+            {
+                if (settings is GccCommon.ICommonLinkerSettings)
+                {
+                    var linker = settings as C.ICommonLinkerSettings;
+                    linker.Libraries.AddUnique("-lpthread");
+                }
+            });
         }
     }
 }
