@@ -137,7 +137,7 @@ namespace boost
                 {
                     if (settings is C.ICommonPreprocessorSettings preprocessor)
                     {
-                        preprocessor.IncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
+                        preprocessor.SystemIncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
                         var configuration = this.Configuration as IConfigureBoost;
                         if (!configuration.EnableAutoLinking)
                         {
