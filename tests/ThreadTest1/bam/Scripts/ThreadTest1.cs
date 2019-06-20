@@ -11,7 +11,7 @@ namespace ThreadTest1
         }
     }
 
-    sealed class ThreadTest1 :
+    class ThreadTest1 :
         C.Cxx.ConsoleApplication
     {
         protected override void
@@ -31,12 +31,28 @@ namespace ThreadTest1
 
             this.PrivatePatch(settings =>
             {
-                if (settings is GccCommon.ICommonLinkerSettings)
+                if (settings is GccCommon.ICommonLinkerSettings gccLinker)
                 {
+                    gccLinker.CanUseOrigin = true;
+                    gccLinker.RPath.AddUnique("$ORIGIN");
                     var linker = settings as C.ICommonLinkerSettings;
                     linker.Libraries.AddUnique("-lpthread");
                 }
             });
+        }
+    }
+
+    sealed class ThreadTestRuntime :
+        Publisher.Collation
+    {
+        protected override void
+        Init(
+            Bam.Core.Module parent)
+        {
+            base.Init(parent);
+
+            this.SetDefaultMacrosAndMappings(EPublishingType.ConsoleApplication);
+            this.Include<ThreadTest1>(C.Cxx.ConsoleApplication.ExecutableKey);
         }
     }
 }

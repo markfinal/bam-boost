@@ -19,6 +19,7 @@
     <Package name="Gcc" version="9" />
     <Package name="MakeFileBuilder" />
     <Package name="NativeBuilder" />
+    <Package name="Publisher" />
     <Package name="VisualC" version="10.0" />
     <Package name="VisualC" version="11.0" />
     <Package name="VisualC" version="12.0" />
