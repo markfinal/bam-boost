@@ -93,6 +93,10 @@ namespace boost
                 {
                     vcVer = "110";
                 }
+                else if (visualC.Version == "10.0")
+                {
+                    vcVer = "100";
+                }
                 else
                 {
                     throw new Bam.Core.Exception($"Unsupported version of VisualC, {visualC.Version}");
