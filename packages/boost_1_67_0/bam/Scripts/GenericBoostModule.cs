@@ -73,10 +73,16 @@ namespace boost
             {
                 var visualC = Bam.Core.Graph.Instance.Packages.First(item => item.Name == "VisualC");
                 string vcVer = string.Empty;
-                if (visualC.Version == "14.0" ||
-                    visualC.Version == "15.0")
+                if (visualC.Version == "16")
                 {
-                    // VS 2017 is backward compatible with VS2015
+                    vcVer = "142";
+                }
+                else if (visualC.Version == "15.0")
+                {
+                    vcVer = "141";
+                }
+                else if (visualC.Version == "14.0")
+                {
                     vcVer = "140";
                 }
                 else if (visualC.Version == "12.0")
