@@ -37,10 +37,9 @@ namespace boost
         {}
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/system/src/*.cpp");
 
@@ -61,10 +60,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/error_code_test.cpp");
                 this.CompileAndLinkAgainst<System>(this.TestSource);
@@ -75,10 +73,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/error_code_user_test.cpp");
                 this.CompileAndLinkAgainst<System>(this.TestSource);
@@ -89,10 +86,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/system_error_test.cpp");
                 this.CompileAndLinkAgainst<System>(this.TestSource);
@@ -103,10 +99,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/dynamic_link_test.cpp");
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/throw_test.cpp");
@@ -118,10 +113,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/initialization_test.cpp");
                 this.CompileAndLinkAgainst<System>(this.TestSource);
@@ -132,10 +126,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/header_only_test.cpp");
                 this.CompileAndLinkAgainst<System>(this.TestSource);
@@ -146,10 +139,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/system/test/config_test.cpp");
                 this.CompileAndLinkAgainst<System>(this.TestSource);

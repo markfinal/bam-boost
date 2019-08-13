@@ -40,10 +40,9 @@ namespace boost
         }
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.TestSource = this.CreateCxxSourceContainer();
             this.TestSource.PrivatePatch(settings =>

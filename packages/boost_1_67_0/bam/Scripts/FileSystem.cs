@@ -37,10 +37,9 @@ namespace boost
         {}
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.CreateHeaderContainer("$(packagedir)/libs/filesystem/src/*.hpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/filesystem/src/*.cpp");
@@ -79,10 +78,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/filesystem/test/locale_info.cpp");
                 this.CompileAndLinkAgainst<FileSystem>(this.TestSource);

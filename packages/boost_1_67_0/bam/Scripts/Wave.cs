@@ -37,10 +37,9 @@ namespace boost
         {}
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/wave/src/*.cpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/wave/src/cpplexer/re2clex/*.cpp");
@@ -130,10 +129,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/wave/test/testwave/testwave.cpp");
                 this.TestSource.AddFiles("$(packagedir)/libs/wave/test/testwave/testwave_app.cpp");

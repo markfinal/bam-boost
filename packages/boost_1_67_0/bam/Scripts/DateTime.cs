@@ -37,10 +37,9 @@ namespace boost
         {}
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/date_time/src/gregorian/*.cpp");
 
@@ -73,10 +72,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/date_time/test/testgregorian_calendar.cpp");
                 this.CompileAndLinkAgainst<DateTime>(this.TestSource);

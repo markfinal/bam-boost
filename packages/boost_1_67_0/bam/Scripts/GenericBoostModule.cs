@@ -62,10 +62,9 @@ namespace boost
         protected C.HeaderFileCollection BoostHeaders { get; private set; }
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SetSemanticVersion(1, 6, 7);
 

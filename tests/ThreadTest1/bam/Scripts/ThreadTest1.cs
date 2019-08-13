@@ -15,10 +15,9 @@ namespace ThreadTest1
         C.Cxx.ConsoleApplication
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
             this.CompileAndLinkAgainst<boost.Thread>(source);
@@ -46,10 +45,9 @@ namespace ThreadTest1
         Publisher.Collation
     {
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.SetDefaultMacrosAndMappings(EPublishingType.ConsoleApplication);
             this.Include<ThreadTest1>(C.Cxx.ConsoleApplication.ExecutableKey);

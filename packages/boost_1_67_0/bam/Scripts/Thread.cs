@@ -38,10 +38,9 @@ namespace boost
         {}
 
         protected override void
-        Init(
-            Bam.Core.Module parent)
+        Init()
         {
-            base.Init(parent);
+            base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/*.cpp");
 
@@ -95,10 +94,9 @@ namespace boost
             GenericBoostTest
         {
             protected override void
-            Init(
-                Bam.Core.Module parent)
+            Init()
             {
-                base.Init(parent);
+                base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/thread/test/test_scheduler.cpp");
                 this.CompileAndLinkAgainst<Thread>(this.TestSource);
