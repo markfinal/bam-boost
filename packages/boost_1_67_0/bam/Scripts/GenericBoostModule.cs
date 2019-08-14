@@ -130,7 +130,7 @@ namespace boost
                     {
                         // boost_vc_mode is a macro used on the link step, so must use the encapsulating module of the source
                         // (since it depends on a compilation property)
-                        var encapsulating = this.GetEncapsulatingReferencedModule();
+                        var encapsulating = this.EncapsulatingModule;
                         if (vcCompiler.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
                         {
                             encapsulating.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt-gd");
