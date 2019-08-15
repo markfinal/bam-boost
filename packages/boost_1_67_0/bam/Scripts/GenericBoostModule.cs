@@ -100,21 +100,21 @@ namespace boost
                 {
                     throw new Bam.Core.Exception($"Unsupported version of VisualC, {visualC.Version}");
                 }
-                this.Macros["OutputName"] = this.CreateTokenizedString(
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString(
                     string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-{2}_{3}{4}",
                                   this.Name,
                                   vcVer,
-                                  this.Macros["MajorVersion"].ToString(),
-                                  this.Macros["MinorVersion"].ToString(),
-                                  this.Macros["PatchVersion"].ToString()));
+                                  this.Macros[C.ModuleMacroNames.MajorVersion].ToString(),
+                                  this.Macros[C.ModuleMacroNames.MinorVersion].ToString(),
+                                  this.Macros[C.ModuleMacroNames.PatchVersion].ToString()));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.Macros["OutputName"] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
+                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
             }
             else
             {
