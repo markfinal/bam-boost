@@ -44,7 +44,7 @@ namespace boost
         {
             base.Init();
 
-            this.TestSource = this.CreateCxxSourceContainer();
+            this.TestSource = this.CreateCxxSourceCollection();
             this.TestSource.PrivatePatch(settings =>
                 {
                     var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;

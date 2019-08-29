@@ -19,7 +19,7 @@ namespace ThreadTest1
         {
             base.Init();
 
-            var source = this.CreateCxxSourceContainer("$(packagedir)/source/*.cpp");
+            var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
             this.CompileAndLinkAgainst<boost.Thread>(source);
 
             source.PrivatePatch(settings =>

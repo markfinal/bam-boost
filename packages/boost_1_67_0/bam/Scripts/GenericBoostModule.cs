@@ -121,9 +121,9 @@ namespace boost
                 throw new Bam.Core.Exception("Invalid platform for Boost builds");
             }
 
-            this.BoostHeaders = this.CreateHeaderContainer(string.Format("$(packagedir)/boost/{0}/**.hpp", this.Name));
+            this.BoostHeaders = this.CreateHeaderCollection(string.Format("$(packagedir)/boost/{0}/**.hpp", this.Name));
 
-            this.BoostSource = this.CreateCxxSourceContainer();
+            this.BoostSource = this.CreateCxxSourceCollection();
             this.BoostSource.ClosingPatch(settings =>
                 {
                     if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)

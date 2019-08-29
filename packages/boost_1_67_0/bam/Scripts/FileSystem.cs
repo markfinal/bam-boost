@@ -41,7 +41,7 @@ namespace boost
         {
             base.Init();
 
-            this.CreateHeaderContainer("$(packagedir)/libs/filesystem/src/*.hpp");
+            this.CreateHeaderCollection("$(packagedir)/libs/filesystem/src/*.hpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/filesystem/src/*.cpp");
 
             this.BoostSource.PrivatePatch(settings =>
