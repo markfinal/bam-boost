@@ -56,10 +56,14 @@ namespace boost
                 {
                     if (settings is GccCommon.ICommonCompilerSettings)
                     {
+                        var compiler = settings as C.ICommonCompilerSettings;
                         if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_5))
                         {
-                            var compiler = settings as C.ICommonCompilerSettings;
                             compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_60_0/boost/date_time/gregorian/greg_facet.hpp:293:12: error: 'template<class> class std::auto_ptr' is deprecated [-Werror=deprecated-declarations]
+                        }
+                        if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_8))
+                        {
+                            compiler.DisableWarnings.AddUnique("parentheses"); // boost_1_67_0/boost/mpl/assert.hpp:188:21: error: unnecessary parentheses in declaration of 'assert_arg' [-Werror=parentheses]
                         }
                     }
                 });

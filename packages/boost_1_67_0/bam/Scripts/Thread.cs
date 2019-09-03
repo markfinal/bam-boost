@@ -69,6 +69,11 @@ namespace boost
                         if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                         {
                             gccCompiler.ExtraWarnings = false;
+                            if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_8))
+                            {
+                                var compiler = settings as C.ICommonCompilerSettings;
+                                compiler.DisableWarnings.AddUnique("parentheses"); // boost_1_67_0/boost/mpl/assert.hpp:188:21: error: unnecessary parentheses in declaration of 'assert_arg' [-Werror=parentheses]
+                            }
                         }
 
                         if (settings is ClangCommon.ICommonCompilerSettings)
