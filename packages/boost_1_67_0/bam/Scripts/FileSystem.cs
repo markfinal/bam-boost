@@ -49,6 +49,11 @@ namespace boost
                     if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                     {
                         gccCompiler.ExtraWarnings = false;
+                        if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_5))
+                        {
+                            var compiler = settings as C.ICommonCompilerSettings;
+                            compiler.DisableWarnings.AddUnique("deprecated-declarations"); // boost_1_67_0/libs/filesystem/src/operations.cpp:2094:47: error: 'int readdir_r(DIR*, dirent*, dirent**)' is deprecated [-Werror=deprecated-declarations]
+                        }
                     }
 
                     if (settings is ClangCommon.ICommonCompilerSettings clangCompiler)
