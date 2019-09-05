@@ -49,6 +49,14 @@ namespace boost
                     {
                         clangCompiler.Visibility = ClangCommon.EVisibility.Default; // TODO: don't know why, but templated do_assign functions were missing at link without this
                     }
+                    if (settings is VisualCCommon.ICommonCompilerSettings)
+                    {
+                        if (this.BoostSource.Compiler.Version.AtLeast(VisualCCommon.ToolchainVersion.VC2019_16_0))
+                        {
+                            var compiler = settings as C.ICommonCompilerSettings;
+                            compiler.DisableWarnings.AddUnique("4244"); // MSVC\14.22.27905\include\xstring(2348): warning C4244: 'argument': conversion from '_Ty' to 'const _Elem', possible loss of data
+                        }
+                    }
                 });
 
             this.PublicPatch((settings, appliedTo) =>
