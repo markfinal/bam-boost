@@ -6,6 +6,8 @@
   </Sources>
   <Dependents>
     <Package name="C" />
+    <Package name="Clang" version="Xcode10" />
+    <Package name="Clang" version="Xcode11" />
     <Package name="Clang" version="Xcode4" />
     <Package name="Clang" version="Xcode5" />
     <Package name="Clang" version="Xcode6" />
@@ -14,6 +16,10 @@
     <Package name="Clang" version="Xcode9" />
     <Package name="Gcc" version="4.8" default="true" />
     <Package name="Gcc" version="5" />
+    <Package name="Gcc" version="6" />
+    <Package name="Gcc" version="7" />
+    <Package name="Gcc" version="8" />
+    <Package name="Gcc" version="9" />
     <Package name="MakeFileBuilder" />
     <Package name="Mingw" version="4.8.1" />
     <Package name="NativeBuilder" />
