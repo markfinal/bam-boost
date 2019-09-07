@@ -57,6 +57,14 @@ namespace boost
                             compiler.DisableWarnings.AddUnique("4244"); // MSVC\14.22.27905\include\xstring(2348): warning C4244: 'argument': conversion from '_Ty' to 'const _Elem', possible loss of data
                         }
                     }
+                    if (settings is GccCommon.ICommonCompilerSettings)
+                    {
+                        if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_7))
+                        {
+                            var compiler = settings as C.ICommonCompilerSettings;
+                            compiler.DisableWarnings.AddUnique("implicit-fallthrough");
+                        }
+                    }
                 });
 
             this.PublicPatch((settings, appliedTo) =>

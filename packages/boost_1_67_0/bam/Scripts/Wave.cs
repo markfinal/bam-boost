@@ -99,6 +99,10 @@ namespace boost
                                 compiler.DisableWarnings.AddUnique("strict-overflow"); // boost_1_64_0/boost/wave/grammars/cpp_expression_value.hpp:189:43: error: assuming signed overflow does not occur when assuming that (X + c) < X is always false [-Werror=strict-overflow]
                             }
                         }
+                        if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_7))
+                        {
+                            compiler.DisableWarnings.AddUnique("format-overflow");
+                        }
                     }
                     if (settings is VisualCCommon.ICommonCompilerSettings)
                     {
