@@ -154,6 +154,14 @@ namespace boost
                         }
                         preprocessor.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
                     }
+                    if (settings is GccCommon.ICommonCompilerSettings)
+                    {
+                        if (this.BoostSource.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_8))
+                        {
+                            var compiler = settings as C.ICommonCompilerSettings;
+                            compiler.DisableWarnings.AddUnique("parentheses");
+                        }
+                    }
                 });
 
             this.BoostSource.PrivatePatch(settings =>
