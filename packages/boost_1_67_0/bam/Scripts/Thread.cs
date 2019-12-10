@@ -86,9 +86,11 @@ namespace boost
 
             if (this is C.Cxx.DynamicLibrary)
             {
-                this.LinkPubliclyAgainst<DateTime>();
                 this.LinkPubliclyAgainst<System>();
-                this.LinkPubliclyAgainst<Chrono>();
+                this.LinkPubliclyAgainst<DateTime>();
+                /* temporary
+                    this.LinkPubliclyAgainst<Chrono>();
+                */
             }
         }
     }
@@ -104,15 +106,17 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/thread/test/test_scheduler.cpp");
+                /*
                 this.CompileAndLinkAgainst<Thread>(this.TestSource);
                 if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
                 {
                     this.LinkAgainst<Atomic>(); // TODO: but not used at runtime?
                 }
+                */
 
                 this.PrivatePatch(settings =>
                     {
-                        if (settings is GccCommon.ICommonLinkerSettings)
+                        if (settings is C.ICommonLinkerSettingsLinux)
                         {
                             var linker = settings as C.ICommonLinkerSettings;
                             linker.Libraries.AddUnique("-lpthread");

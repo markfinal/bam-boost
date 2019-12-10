@@ -44,6 +44,7 @@ namespace boost
             this.BoostSource.AddFiles("$(packagedir)/libs/wave/src/*.cpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/wave/src/cpplexer/re2clex/*.cpp");
 
+            /*
             if (this is C.Cxx.DynamicLibrary)
             {
                 this.LinkAgainst<Thread>();
@@ -51,6 +52,7 @@ namespace boost
                 this.CompilePubliclyAndLinkAgainst<DateTime>(this.BoostSource);
                 this.LinkAgainst<Chrono>();
             }
+            */
 
             // TODO: this is a hack
             // for some reason, symbols like expression_grammar_gen (which is templated) are not exported to the
@@ -139,14 +141,16 @@ namespace boost
 
                 this.TestSource.AddFiles("$(packagedir)/libs/wave/test/testwave/testwave.cpp");
                 this.TestSource.AddFiles("$(packagedir)/libs/wave/test/testwave/testwave_app.cpp");
+                /*
                 this.CompileAndLinkAgainst<Wave>(this.TestSource);
                 this.CompileAndLinkAgainst<ProgramOptions>(this.TestSource);
                 this.CompileAndLinkAgainst<FileSystem>(this.TestSource);
                 this.CompileAndLinkAgainst<Thread>(this.TestSource);
+                */
 
                 this.PrivatePatch(settings =>
                     {
-                        if (settings is GccCommon.ICommonLinkerSettings)
+                        if (settings is C.ICommonLinkerSettingsLinux)
                         {
                             var linker = settings as C.ICommonLinkerSettings;
                             linker.Libraries.AddUnique("-lpthread");

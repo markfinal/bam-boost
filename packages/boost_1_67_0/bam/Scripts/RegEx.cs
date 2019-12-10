@@ -90,7 +90,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/regex/test/captures/*.cpp");
+                /*
                 this.CompileAndLinkAgainst<RegEx>(this.TestSource);
+                */
 
                 this.TestSource.PrivatePatch(settings =>
                     {

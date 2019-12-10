@@ -29,47 +29,16 @@
 #endregion // License
 namespace boost
 {
-    class ProgramOptions :
-        GenericBoostModule
+    class TypeIndex :
+        C.HeaderLibrary
     {
-        public ProgramOptions() :
-            base("program_options")
-        {}
-
         protected override void
         Init()
         {
             base.Init();
 
-            this.BoostSource.AddFiles("$(packagedir)/libs/program_options/src/*.cpp");
-
-            this.BoostSource.PrivatePatch(settings =>
-                {
-                    if (settings is VisualCCommon.ICommonCompilerSettings)
-                    {
-                        var compiler = settings as C.ICommonCompilerSettings;
-                        compiler.DisableWarnings.AddUnique("4458"); // boost_1_60_0\libs\program_options\src\cmdline.cpp(104): warning C4458: declaration of 'args' hides class member
-                        compiler.DisableWarnings.AddUnique("4456"); // boost_1_60_0\libs\program_options\src\variables_map.cpp(71): warning C4456: declaration of 'original_token' hides previous local declaration
-                    }
-                });
-        }
-    }
-
-    namespace tests
-    {
-        class Parsers_test :
-            GenericBoostTest
-        {
-            protected override void
-            Init()
-            {
-                base.Init();
-
-                this.TestSource.AddFiles("$(packagedir)/libs/program_options/test/parsers_test.cpp");
-                /*
-                this.CompileAndLinkAgainst<ProgramOptions>(this.TestSource);
-                */
-            }
+            var headers = this.CreateHeaderCollection("$(packagedir)/boost/type_index/**.hpp");
+            headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/type_index.hpp"));
         }
     }
 }

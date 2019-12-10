@@ -70,10 +70,12 @@ namespace boost
                     }
                 });
 
+            /*
             if (this is C.Cxx.DynamicLibrary)
             {
                 this.LinkAgainst<System>();
             }
+            */
         }
     }
 
@@ -88,7 +90,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/filesystem/test/locale_info.cpp");
+                /*
                 this.CompileAndLinkAgainst<FileSystem>(this.TestSource);
+                */
             }
         }
     }

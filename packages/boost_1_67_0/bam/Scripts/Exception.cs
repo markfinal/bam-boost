@@ -29,11 +29,11 @@
 #endregion // License
 namespace boost
 {
-    class Atomic :
+    class Exception :
         GenericBoostModule
     {
-        public Atomic() :
-            base("atomic")
+        public Exception() :
+            base("exception")
         {}
 
         protected override void
@@ -41,37 +41,13 @@ namespace boost
         {
             base.Init();
 
-            this.BoostSource.AddFiles("$(packagedir)/libs/atomic/src/*.cpp");
-
-            this.BoostSource.PrivatePatch(settings =>
-                {
-                    var preprocessor = settings as C.ICommonPreprocessorSettings;
-                    preprocessor.PreprocessorDefines.Add("BOOST_ATOMIC_SOURCE");
-
-                    var compiler = settings as C.ICommonCompilerSettings;
-                    if (settings is VisualCCommon.ICommonCompilerSettings)
-                    {
-                        compiler.DisableWarnings.AddUnique("4324"); // boost_1_60_0\libs\atomic\src\lockpool.cpp(69): warning C4324: 'boost::atomics::detail::`anonymous-namespace'::padded_lock<0>': structure was padded due to alignment specifier
-                    }
-                    if (settings is ClangCommon.ICommonCompilerSettings)
-                    {
-                        compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order' [-Werror,-Wunused-parameter]
-                    }
-                });
-
-            this.PublicPatch((settings, appliedTo) =>
-                {
-                    if (settings is C.ICommonPreprocessorSettings preprocessor)
-                    {
-                        preprocessor.PreprocessorDefines.Add("BOOST_ATOMIC_DYN_LINK");
-                    }
-                });
+            this.BoostSource.AddFiles("$(packagedir)/libs/exception/src/*.cpp");
         }
     }
 
     namespace tests
     {
-        class Lockfree :
+        class ThrowExceptionTest :
             GenericBoostTest
         {
             protected override void
@@ -79,10 +55,7 @@ namespace boost
             {
                 base.Init();
 
-                this.TestSource.AddFiles("$(packagedir)/libs/atomic/test/lockfree.cpp");
-                /*
-                this.CompileAndLinkAgainst<Atomic>(this.TestSource);
-                */
+                this.TestSource.AddFiles("$(packagedir)/libs/exception/test/1-throw_exception_test.cpp");
             }
         }
     }

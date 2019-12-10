@@ -43,6 +43,7 @@ namespace boost
 
             this.BoostSource.AddFiles("$(packagedir)/libs/date_time/src/gregorian/*.cpp");
 
+            /*
             this.PublicPatch((settings, appliedTo) =>
                 {
                     if (settings is ClangCommon.ICommonCompilerSettings)
@@ -51,6 +52,7 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("c++11-long-long"); // boost_1_60_0/boost/functional/hash/hash.hpp:241:32: error: 'long long' is a C++11 extension
                     }
                 });
+                */
 
             this.BoostSource.PrivatePatch(settings =>
                 {
@@ -81,7 +83,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/date_time/test/testgregorian_calendar.cpp");
+                /*
                 this.CompileAndLinkAgainst<DateTime>(this.TestSource);
+                */
             }
         }
     }

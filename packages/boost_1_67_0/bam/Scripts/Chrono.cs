@@ -45,7 +45,7 @@ namespace boost
 
             if (this is C.Cxx.DynamicLibrary)
             {
-                this.LinkAgainst<System>();
+                this.LinkPubliclyAgainst<System>();
 
                 this.BoostSource.PrivatePatch(settings =>
                     {
@@ -76,7 +76,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/intmax_c.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                */
             }
         }
 
@@ -90,8 +92,10 @@ namespace boost
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/one_obj.cpp");
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/another_obj.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
                 this.CompileAndLinkAgainst<System>(this.TestSource);
+                */
             }
         }
 
@@ -104,8 +108,10 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/clock/*.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
                 this.CompileAndLinkAgainst<System>(this.TestSource);
+                */
             }
         }
 
@@ -118,7 +124,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/arithmetic_pass.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                */
             }
         }
 
@@ -131,7 +139,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/comparisons_pass.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                */
             }
         }
 
@@ -144,7 +154,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/constructor_pass.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                */
             }
         }
 
@@ -157,7 +169,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/duration_cast_pass.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                */
             }
         }
 
@@ -170,7 +184,9 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/duration_values_pass.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
+                */
             }
         }
 
@@ -183,8 +199,10 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/duration/rounding_pass.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
                 this.CompileAndLinkAgainst<System>(this.TestSource);
+                */
             }
         }
 
@@ -197,8 +215,10 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/duration_input.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
                 this.CompileAndLinkAgainst<System>(this.TestSource);
+                */
             }
         }
 
@@ -211,8 +231,10 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/duration_output.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
                 this.CompileAndLinkAgainst<System>(this.TestSource);
+                */
             }
         }
 
@@ -225,8 +247,10 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/time_point_input.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
                 this.CompileAndLinkAgainst<System>(this.TestSource);
+                */
             }
         }
 
@@ -239,8 +263,10 @@ namespace boost
                 base.Init();
 
                 this.TestSource.AddFiles("$(packagedir)/libs/chrono/test/io/time_point_output.cpp");
+                /*
                 this.CompileAndLinkAgainst<Chrono>(this.TestSource);
                 this.CompileAndLinkAgainst<System>(this.TestSource);
+                */
             }
         }
     }

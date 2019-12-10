@@ -55,7 +55,10 @@ namespace boost
         global::System.Type Bam.Core.IHasModuleConfiguration.WriteableClassType => typeof(ConfigureBoost);
 
         protected GenericBoostModule(
-            string name) => this.Name = name;
+            string name)
+        {
+            this.Name = name;
+        }
 
         private string Name { get; set; }
         protected C.Cxx.ObjectFileCollection BoostSource { get; private set; }
@@ -74,7 +77,8 @@ namespace boost
                 string vcVer = string.Empty;
                 if (visualC.Version == "16")
                 {
-                    vcVer = "142";
+                    // no exact support for 142 yet
+                    vcVer = "141";
                 }
                 else if (visualC.Version == "15.0")
                 {
@@ -100,13 +104,11 @@ namespace boost
                 {
                     throw new Bam.Core.Exception($"Unsupported version of VisualC, {visualC.Version}");
                 }
+                this.Macros[C.ModuleMacroNames.DynamicLibraryPrefix] = Bam.Core.TokenizedString.CreateVerbatim("lib");
+                this.Macros[C.ModuleMacroNames.LibraryPrefix] = Bam.Core.TokenizedString.CreateVerbatim("lib");
                 this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString(
-                    string.Format("boost_{0}-vc{1}-$(boost_vc_mode)-{2}_{3}{4}",
-                                  this.Name,
-                                  vcVer,
-                                  this.Macros[C.ModuleMacroNames.MajorVersion].ToString(),
-                                  this.Macros[C.ModuleMacroNames.MinorVersion].ToString(),
-                                  this.Macros[C.ModuleMacroNames.PatchVersion].ToString()));
+                    $"boost_{this.Name}-vc{vcVer}-$(boost_vc_mode)-x64-{this.Macros[C.ModuleMacroNames.MajorVersion].ToString()}_{this.Macros[C.ModuleMacroNames.MinorVersion].ToString()}{this.Macros[C.ModuleMacroNames.PatchVersion].ToString()}"
+                );
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
@@ -124,24 +126,43 @@ namespace boost
             this.BoostHeaders = this.CreateHeaderCollection(string.Format("$(packagedir)/boost/{0}/**.hpp", this.Name));
 
             this.BoostSource = this.CreateCxxSourceCollection();
-            this.BoostSource.ClosingPatch(settings =>
+            this.BoostSource.PrivatePatch(settings =>
+            {
+                if (settings is C.ICommonPreprocessorSettings preprocessor)
                 {
-                    if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
+                    // disable auto-link for internal builds
+                    preprocessor.PreprocessorDefines.Add("BOOST_ALL_NO_LIB");
+                    // export symbols
+                    preprocessor.PreprocessorDefines.Add("BOOST_ALL_DYN_LINK");
+                }
+            });
+            this.ClosingPatch(settings =>
+                {
+                    if (null == this.BoostSource.Settings)
+                    {
+                        // this is executed on prebuilt SDK runs, since the Boost source Modules are not built
+                        settings = this.BoostSource.MakeSettings();
+                        settings.SetModuleAndDefaultPropertyValues(this.BoostSource);
+                        this.BoostSource.ApplySettingsPatches();
+                    }
+
+                    if (this.BoostSource.Settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
                     {
                         // boost_vc_mode is a macro used on the link step, so must use the encapsulating module of the source
                         // (since it depends on a compilation property)
-                        var encapsulating = this.EncapsulatingModule;
                         if (vcCompiler.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
                         {
-                            encapsulating.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt-gd");
+                            this.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt-gd");
                         }
                         else
                         {
-                            encapsulating.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt");
+                            this.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt");
                         }
                     }
                 });
+            this.CompileAgainst<Config>(this.BoostSource);
 
+            /*
             this.PublicPatch((settings, appliedTo) =>
                 {
                     if (settings is C.ICommonPreprocessorSettings preprocessor)
@@ -163,9 +184,15 @@ namespace boost
                         }
                     }
                 });
+                */
 
             this.BoostSource.PrivatePatch(settings =>
                 {
+                    if (settings is C.ICommonPreprocessorSettings preprocessor)
+                    {
+                        preprocessor.SystemIncludePaths.AddUnique(this.CreateTokenizedString("$(packagedir)"));
+                    }
+
                     var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
                     cxxCompiler.LanguageStandard = C.Cxx.ELanguageStandard.Cxx11;
                     cxxCompiler.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
