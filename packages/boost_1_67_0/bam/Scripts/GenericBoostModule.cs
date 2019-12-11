@@ -224,6 +224,10 @@ namespace boost
                     {
                         cxxLinker.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
                     }
+                    if (settings is C.ICommonLinkerSettingsLinux linuxLinker)
+                    {
+                        linuxLinker.SharedObjectName = this.CreateTokenizedString("$(dynamicprefix)$(OutputName)$(sonameext)");
+                    }
                 });
         }
     }
