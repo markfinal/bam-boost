@@ -60,7 +60,9 @@ namespace boost
             typeof(Thread),
             typeof(DateTime),
             typeof(Chrono),
-            typeof(System)
+            typeof(System),
+            typeof(Atomic),
+            typeof(Container)
         );
 
         public SDK()
@@ -143,6 +145,10 @@ namespace boost
                 "boost/chrono/**",
                 "boost/ratio.hpp",
                 "boost/ratio/**",
+                "boost/atomic.hpp",
+                "boost/atomic/**",
+                "boost/memory_order.hpp",
+                "boost/container/**",
             };
         }
 

@@ -59,6 +59,7 @@ namespace boost
                     }
                 });
 
+            /*
             this.PublicPatch((settings, appliedTo) =>
                 {
                     if (settings is C.ICommonPreprocessorSettings preprocessor)
@@ -66,6 +67,7 @@ namespace boost
                         preprocessor.PreprocessorDefines.Add("BOOST_ATOMIC_DYN_LINK");
                     }
                 });
+                */
         }
     }
 
