@@ -160,7 +160,11 @@ namespace boost
                         }
                     }
                 });
-            this.CompileAgainst<Config>(this.BoostSource);
+
+            // TODO: fix me
+            // adding this causes problems with Xcode generation, reporting
+            // (Bam.Core.Exception) Cannot create Xcode project for Module boost.Config as it has no registered outputs
+            //this.CompileAgainst<Config>(this.BoostSource);
 
             /*
             this.PublicPatch((settings, appliedTo) =>
