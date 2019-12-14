@@ -7,6 +7,7 @@ notifications:
 language: csharp
 python: '2.7'
 install:
+  - getconf ARG_MAX
   - export BAM_BRANCH_TESTED=${BAM_BRANCH:-sdk_work}
   - echo "Testing BAM branch '${BAM_BRANCH_TESTED}'"
   - wget "https://ci.appveyor.com/api/projects/markfinal/buildamation/artifacts/bam.tar?branch=${BAM_BRANCH_TESTED}&job=Image%3A%20Visual%20Studio%202017" -O /tmp/bam.tar
