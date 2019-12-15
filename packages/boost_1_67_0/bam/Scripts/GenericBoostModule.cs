@@ -202,18 +202,20 @@ namespace boost
                     cxxCompiler.StandardLibrary = C.Cxx.EStandardLibrary.libcxx;
                     cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
 
+                    if (settings is C.ICommonCompilerSettings compiler)
+                    {
+                        compiler.WarningsAsErrors = false;
+                    }
                     if (settings is VisualCCommon.ICommonCompilerSettings vcCompiler)
                     {
                         vcCompiler.WarningLevel = VisualCCommon.EWarningLevel.Level4;
                     }
-
                     if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
                     {
                         gccCompiler.AllWarnings = true;
                         gccCompiler.ExtraWarnings = true;
                         gccCompiler.Pedantic = true;
                     }
-
                     if (settings is ClangCommon.ICommonCompilerSettings clangCompiler)
                     {
                         clangCompiler.AllWarnings = true;

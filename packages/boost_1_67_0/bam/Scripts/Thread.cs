@@ -44,6 +44,21 @@ namespace boost
 
             this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/*.cpp");
 
+            this.BoostSource.PrivatePatch(settings =>
+            {
+                if (settings is C.ICommonPreprocessorSettings preprocessor)
+                {
+                    if (this is C.IDynamicLibrary)
+                    {
+                        preprocessor.PreprocessorDefines.Add("BOOST_THREAD_BUILD_DLL");
+                    }
+                    else
+                    {
+                        preprocessor.PreprocessorDefines.Add("BOOST_THREAD_BUILD_LIB");
+                    }
+                }
+            });
+
             if (this.BuildEnvironment.Platform.Includes(EPlatform.Windows))
             {
                 this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/win32/*.cpp");

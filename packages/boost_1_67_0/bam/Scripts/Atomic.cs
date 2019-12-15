@@ -43,12 +43,14 @@ namespace boost
 
             this.BoostSource.AddFiles("$(packagedir)/libs/atomic/src/*.cpp");
 
-            /*
             this.BoostSource.PrivatePatch(settings =>
                 {
-                    var preprocessor = settings as C.ICommonPreprocessorSettings;
-                    preprocessor.PreprocessorDefines.Add("BOOST_ATOMIC_SOURCE");
+                    if (settings is C.ICommonPreprocessorSettings preprocessor)
+                    {
+                        preprocessor.PreprocessorDefines.Add("BOOST_ATOMIC_SOURCE");
+                    }
 
+                    /*
                     var compiler = settings as C.ICommonCompilerSettings;
                     if (settings is VisualCCommon.ICommonCompilerSettings)
                     {
@@ -58,8 +60,8 @@ namespace boost
                     {
                         compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order' [-Werror,-Wunused-parameter]
                     }
+                    */
                 });
-                */
 
             /*
             this.PublicPatch((settings, appliedTo) =>
