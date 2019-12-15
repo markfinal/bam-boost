@@ -43,6 +43,7 @@ namespace boost
 
             this.BoostSource.AddFiles("$(packagedir)/libs/program_options/src/*.cpp");
 
+            /*
             this.BoostSource.PrivatePatch(settings =>
                 {
                     if (settings is VisualCCommon.ICommonCompilerSettings)
@@ -52,6 +53,7 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("4456"); // boost_1_60_0\libs\program_options\src\variables_map.cpp(71): warning C4456: declaration of 'original_token' hides previous local declaration
                     }
                 });
+                */
         }
     }
 

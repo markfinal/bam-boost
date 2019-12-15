@@ -44,6 +44,7 @@ namespace boost
             this.CreateHeaderCollection("$(packagedir)/libs/filesystem/src/*.hpp");
             this.BoostSource.AddFiles("$(packagedir)/libs/filesystem/src/*.cpp");
 
+            /*
             this.BoostSource.PrivatePatch(settings =>
                 {
                     if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
@@ -69,6 +70,7 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("4244"); // boost_1_60_0\libs\filesystem\src\windows_file_codecvt.cpp(43) : warning C4244: 'argument' : conversion from '__int64' to 'int', possible loss of data
                     }
                 });
+                */
 
             /*
             if (this is C.Cxx.DynamicLibrary)

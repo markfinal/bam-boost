@@ -47,6 +47,7 @@ namespace boost
             {
                 this.LinkPubliclyAgainst<System>();
 
+                /*
                 this.BoostSource.PrivatePatch(settings =>
                     {
                         if (this.BuildEnvironment.Configuration != Bam.Core.EConfiguration.Debug)
@@ -61,6 +62,7 @@ namespace boost
                             }
                         }
                     });
+                    */
             }
         }
     }

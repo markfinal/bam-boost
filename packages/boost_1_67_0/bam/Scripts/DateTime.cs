@@ -54,6 +54,7 @@ namespace boost
                 });
                 */
 
+            /*
             this.BoostSource.PrivatePatch(settings =>
                 {
                     if (settings is GccCommon.ICommonCompilerSettings)
@@ -69,6 +70,7 @@ namespace boost
                         }
                     }
                 });
+                */
         }
     }
 

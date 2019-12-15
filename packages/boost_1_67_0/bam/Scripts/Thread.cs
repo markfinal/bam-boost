@@ -47,6 +47,7 @@ namespace boost
             if (this.BuildEnvironment.Platform.Includes(EPlatform.Windows))
             {
                 this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/win32/*.cpp");
+                /*
                 this.BoostSource.PrivatePatch(settings =>
                     {
                         var preprocessor = settings as C.ICommonPreprocessorSettings;
@@ -58,12 +59,14 @@ namespace boost
                             compiler.DisableWarnings.AddUnique("4100"); // boost_1_60_0\libs\thread\src\win32\thread.cpp(654) : warning C4100: 'TolerableDelay' : unreferenced formal parameter
                         }
                     });
+                    */
             }
             else
             {
                 this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/pthread/thread.cpp");
                 this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/pthread/once.cpp");
 
+                /*
                 this.BoostSource.PrivatePatch(settings =>
                     {
                         if (settings is GccCommon.ICommonCompilerSettings gccCompiler)
@@ -82,6 +85,7 @@ namespace boost
                             compiler.DisableWarnings.AddUnique("unused-parameter"); // boost_1_60_0/boost/atomic/detail/ops_gcc_x86_dcas.hpp:525:113: error: unused parameter 'order'
                         }
                     });
+                    */
             }
 
             if (this is C.Cxx.DynamicLibrary)

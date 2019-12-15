@@ -69,6 +69,7 @@ namespace boost
                     }
                 });
 
+            /*
             this.BoostSource.PrivatePatch(settings =>
                 {
                     if (settings is ClangCommon.ICommonCompilerSettings)
@@ -83,7 +84,9 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("4709"); // boost_1_60_0\boost/spirit/home/classic/phoenix/primitives.hpp(59) : warning C4709: comma operator within array index expression
                     }
                 });
+                */
 
+            /*
             this.PublicPatch((settings, appliedTo) =>
                 {
                     var compiler = settings as C.ICommonCompilerSettings;
@@ -126,6 +129,7 @@ namespace boost
                         }
                     }
                 });
+                */
         }
     }
 

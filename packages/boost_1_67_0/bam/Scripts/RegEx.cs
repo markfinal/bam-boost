@@ -43,6 +43,7 @@ namespace boost
 
             this.BoostSource.AddFiles("$(packagedir)/libs/regex/src/*.cpp");
 
+            /*
             this.BoostSource.PrivatePatch(settings =>
                 {
                     if (settings is ClangCommon.ICommonCompilerSettings clangCompiler)
@@ -66,7 +67,9 @@ namespace boost
                         }
                     }
                 });
+                */
 
+            /*
             this.PublicPatch((settings, appliedTo) =>
                 {
                     if (settings is ClangCommon.ICommonCompilerSettings)
@@ -76,6 +79,7 @@ namespace boost
                         compiler.DisableWarnings.AddUnique("unknown-pragmas"); // boost_1_60_0/boost/regex/v4/instances.hpp:124:34: error: unknown warning group '-Wkeyword-macro', ignored
                     }
                 });
+                */
         }
     }
 
