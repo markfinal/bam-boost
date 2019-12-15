@@ -24,8 +24,16 @@ namespace ThreadTest1
 
             source.PrivatePatch(settings =>
             {
-                var cxxCompiler = settings as C.ICxxOnlyCompilerSettings;
-                cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
+                if (settings is C.ICxxOnlyCompilerSettings cxxCompiler)
+                {
+                    cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
+
+                    // TODO: should this be part of the Boost SDK Module?
+                    if (this.BitDepth == C.EBit.ThirtyTwo)
+                    {
+                        cxxCompiler.LanguageStandard = C.Cxx.ELanguageStandard.Cxx11;
+                    }
+                }
 
                 if (settings is C.ICommonCompilerSettings compiler)
                 {
