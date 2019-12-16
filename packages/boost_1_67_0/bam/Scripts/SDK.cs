@@ -34,8 +34,8 @@ namespace boost
     class SDK :
         C.SDKTemplate
     {
-        private readonly Bam.Core.StringArray headers;
         private readonly Bam.Core.TypeArray libraryTypes = new Bam.Core.TypeArray(
+            /*
             typeof(Config),
             typeof(SmartPtr),
             typeof(Predef),
@@ -57,16 +57,18 @@ namespace boost
             typeof(Optional),
             typeof(Function),
             typeof(TypeIndex),
-            typeof(Thread),
             typeof(DateTime),
             typeof(Chrono),
             typeof(System),
             typeof(Atomic),
             typeof(Container)
+            */
+            typeof(Thread)
         );
 
         public SDK()
         {
+            /*
             this.headers = new Bam.Core.StringArray
             {
                 "boost/cstdint.hpp",
@@ -97,8 +99,6 @@ namespace boost
                 "boost/preprocessor/**",
                 "boost/numeric/**",
                 "boost/type.hpp",
-                "boost/thread.hpp",
-                "boost/thread/**",
                 "boost/date_time.hpp",
                 "boost/date_time/**",
                 "boost/system/**",
@@ -150,9 +150,9 @@ namespace boost
                 "boost/memory_order.hpp",
                 "boost/container/**",
             };
+            */
         }
 
-        protected override Bam.Core.StringArray HeaderFiles => this.headers;
         protected override Bam.Core.TypeArray LibraryModuleTypes => this.libraryTypes;
 
         protected override void

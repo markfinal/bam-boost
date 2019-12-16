@@ -31,11 +31,17 @@ using Bam.Core;
 namespace boost
 {
     class Thread :
-        GenericBoostModule
+        GenericBoostModule,
+        C.IPublicHeaders
     {
         public Thread() :
             base("thread")
         {}
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/thread.hpp",
+            "boost/thread/**"
+        );
 
         protected override void
         Init()
