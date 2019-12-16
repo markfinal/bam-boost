@@ -29,10 +29,7 @@ namespace ThreadTest1
                     cxxCompiler.ExceptionHandler = C.Cxx.EExceptionHandler.Asynchronous;
 
                     // TODO: should this be part of the Boost SDK Module?
-                    if (this.BitDepth == C.EBit.ThirtyTwo)
-                    {
-                        cxxCompiler.LanguageStandard = C.Cxx.ELanguageStandard.Cxx11;
-                    }
+                    cxxCompiler.LanguageStandard = C.Cxx.ELanguageStandard.Cxx11;
                 }
 
                 if (settings is C.ICommonCompilerSettings compiler)
@@ -47,6 +44,8 @@ namespace ThreadTest1
                         gccCompiler.AllWarnings = true;
                         gccCompiler.ExtraWarnings = true;
                         gccCompiler.Pedantic = true;
+
+                        // TODO: should this be part of the Boost SDK Module?
                         if (source.Compiler.Version.AtLeast(GccCommon.ToolchainVersion.GCC_8))
                         {
                             compiler.DisableWarnings.AddUnique("parentheses");
@@ -57,7 +56,6 @@ namespace ThreadTest1
                         clangCompiler.AllWarnings = true;
                         clangCompiler.ExtraWarnings = true;
                         clangCompiler.Pedantic = true;
-                        compiler.DisableWarnings.AddUnique("unused-parameter");
                     }
                 }
             });
