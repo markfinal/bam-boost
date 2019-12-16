@@ -56,6 +56,12 @@ namespace ThreadTest1
                         clangCompiler.AllWarnings = true;
                         clangCompiler.ExtraWarnings = true;
                         clangCompiler.Pedantic = true;
+
+                        // TODO: should this be part of the Boost SDK Module?
+                        if (source.BitDepth == C.EBit.ThirtyTwo)
+                        {
+                            compiler.DisableWarnings.AddUnique("unused-parameter");
+                        }
                     }
                 }
             });
