@@ -30,8 +30,14 @@
 namespace boost
 {
     class Predef :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/predef.h",
+            "boost/predef/**"
+        );
+
         protected override void
         Init()
         {

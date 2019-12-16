@@ -38,7 +38,8 @@ namespace boost
         {}
 
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/system/**"
+            "boost/system/**",
+            "boost/cerrno.hpp"
         );
 
         protected override void
@@ -47,6 +48,14 @@ namespace boost
             base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/system/src/*.cpp");
+
+            this.BoostHeaders.AddFile("$(packagedir)/boost/cerrno.hpp");
+
+            this.CompileAgainstPublicly<Predef>(this.BoostSource);
+            this.CompileAgainstPublicly<Integer>(this.BoostSource);
+            this.CompileAgainstPublicly<Assert>(this.BoostSource);
+            this.CompileAgainstPublicly<Core>(this.BoostSource);
+            this.CompileAgainstPublicly<Utility>(this.BoostSource);
 
             /*
             this.PublicPatch((settings, appliedTo) =>

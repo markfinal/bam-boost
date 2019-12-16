@@ -30,14 +30,21 @@
 namespace boost
 {
     class Core :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/noncopyable.hpp",
+            "boost/core/**.hpp"
+        );
+
         protected override void
         Init()
         {
             base.Init();
 
-            this.CreateHeaderCollection("$(packagedir)/boost/core/**.hpp");
+            var headers = this.CreateHeaderCollection("$(packagedir)/boost/core/**.hpp");
+            headers.AddFile("$(packagedir)/boost/noncopyable.hpp");
         }
     }
 }

@@ -71,21 +71,10 @@ namespace boost
             /*
             this.headers = new Bam.Core.StringArray
             {
-                "boost/cstdint.hpp",
-                "boost/cerrno.hpp",
-                "boost/assert.hpp",
                 "boost/checked_delete.hpp",
-                "boost/predef.h",
-                "boost/predef/**",
-                "boost/core/**",
-                "boost/type_traits.hpp",
-                "boost/type_traits/**",
-                "boost/detail/**",
                 "boost/winapi/**", // TODO: Windows only?
-                "boost/version.hpp",
                 "boost/limits.hpp",
                 "boost/operators.hpp",
-                "boost/static_assert.hpp",
                 "boost/throw_exception.hpp",
                 "boost/current_function.hpp",
                 "boost/exception_ptr.hpp",
@@ -99,9 +88,6 @@ namespace boost
                 "boost/type.hpp",
                 "boost/date_time.hpp",
                 "boost/date_time/**",
-                "boost/noncopyable.hpp",
-                "boost/utility.hpp",
-                "boost/utility/**",
                 "boost/intrusive_ptr.hpp",
                 "boost/intrusive/**",
                 "boost/move/**",
@@ -151,6 +137,9 @@ namespace boost
         }
 
         protected override Bam.Core.TypeArray LibraryModuleTypes => this.libraryTypes;
+        protected override Bam.Core.StringArray ExtraHeaderFiles { get; } = new Bam.Core.StringArray(
+            "boost/version.hpp"
+        );
 
         protected override void
         Init()

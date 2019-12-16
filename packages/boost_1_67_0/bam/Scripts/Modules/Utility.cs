@@ -30,8 +30,14 @@
 namespace boost
 {
     class Utility :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/utility.hpp",
+            "boost/utility/**"
+        );
+
         protected override void
         Init()
         {

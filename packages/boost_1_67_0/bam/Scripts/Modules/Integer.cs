@@ -30,8 +30,13 @@
 namespace boost
 {
     class Integer :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/cstdint.hpp"
+        );
+
         protected override void
         Init()
         {

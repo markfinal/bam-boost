@@ -29,13 +29,12 @@
 #endregion // License
 namespace boost
 {
-    class TypeTraits :
+    class StaticAssert :
         C.HeaderLibrary,
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/type_traits.hpp",
-            "boost/type_traits/**"
+            "boost/static_assert.hpp"
         );
 
         protected override void
@@ -43,10 +42,7 @@ namespace boost
         {
             base.Init();
 
-            var headers = this.CreateHeaderCollection("$(packagedir)/boost/type_traits/**");
-            headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/type_traits.hpp"));
-
-            this.CompileAgainst<StaticAssert>();
+            this.CreateHeaderCollection("$(packagedir)/boost/static_assert.hpp");
         }
     }
 }
