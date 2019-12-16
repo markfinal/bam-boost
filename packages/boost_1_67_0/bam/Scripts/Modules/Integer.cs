@@ -34,7 +34,10 @@ namespace boost
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/cstdint.hpp"
+            "boost/cstdint.hpp",
+            "boost/integer_traits.hpp",
+            "boost/integer_fwd.hpp",
+            "boost/integer/**"
         );
 
         protected override void

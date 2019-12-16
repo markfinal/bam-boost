@@ -113,15 +113,20 @@ namespace boost
             {
                 this.LinkPubliclyAgainst<System>();
                 this.LinkPubliclyAgainst<DateTime>();
-                /* temporary
-                    this.LinkPubliclyAgainst<Chrono>();
-                */
+                this.LinkPubliclyAgainst<Chrono>();
             }
 
             this.CompileAgainstPublicly<Config>(this.BoostSource);
             this.CompileAgainstPublicly<Detail>(this.BoostSource);
             this.CompileAgainstPublicly<TypeTraits>(this.BoostSource);
             this.CompileAgainstPublicly<Move>(this.BoostSource);
+            this.CompileAgainstPublicly<SmartPtr>(this.BoostSource);
+            this.CompileAgainstPublicly<Bind>(this.BoostSource);
+            this.CompileAgainstPublicly<IO>(this.BoostSource);
+            this.CompileAgainstPublicly<Functional>(this.BoostSource);
+            this.CompileAgainstPublicly<Atomic>(this.BoostSource);
+            this.CompileAgainstPublicly<Tuple>(this.BoostSource);
+            this.CompileAgainstPublicly<Iterator>(this.BoostSource);
         }
     }
 

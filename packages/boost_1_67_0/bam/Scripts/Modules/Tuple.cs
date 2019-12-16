@@ -30,8 +30,13 @@
 namespace boost
 {
     class Tuple :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/tuple/**"
+        );
+
         protected override void
         Init()
         {

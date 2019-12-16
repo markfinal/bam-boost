@@ -30,11 +30,17 @@
 namespace boost
 {
     class Atomic :
-        GenericBoostModule
+        GenericBoostModule,
+        C.IPublicHeaders
     {
         public Atomic() :
             base("atomic")
         {}
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/atomic.hpp",
+            "boost/atomic/**"
+        );
 
         protected override void
         Init()

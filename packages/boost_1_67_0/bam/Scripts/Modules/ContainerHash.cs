@@ -30,14 +30,21 @@
 namespace boost
 {
     class ContainerHash :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/container_hash/**"
+        );
+
         protected override void
         Init()
         {
             base.Init();
 
             this.CreateHeaderCollection("$(packagedir)/boost/container_hash/**");
+
+            this.CompileAgainst<Integer>();
         }
     }
 }

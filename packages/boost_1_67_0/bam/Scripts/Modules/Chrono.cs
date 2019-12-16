@@ -30,11 +30,17 @@
 namespace boost
 {
     class Chrono :
-        GenericBoostModule
+        GenericBoostModule,
+        C.IPublicHeaders
     {
         public Chrono() :
             base("chrono")
         {}
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/chrono.hpp",
+            "boost/chrono/**"
+        );
 
         protected override void
         Init()
@@ -42,6 +48,8 @@ namespace boost
             base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/chrono/src/*.cpp");
+
+            this.CompileAgainstPublicly<Ratio>(this.BoostSource);
 
             if (this is C.Cxx.DynamicLibrary)
             {

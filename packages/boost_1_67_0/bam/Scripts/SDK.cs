@@ -72,33 +72,11 @@ namespace boost
             this.headers = new Bam.Core.StringArray
             {
                 "boost/winapi/**", // TODO: Windows only?
-                "boost/limits.hpp",
-                "boost/operators.hpp",
                 "boost/exception_ptr.hpp",
-                "boost/type.hpp",
                 "boost/intrusive_ptr.hpp",
                 "boost/intrusive/**",
-                "boost/bind.hpp",
-                "boost/bind/**",
-                "boost/ref.hpp",
-                "boost/mem_fn.hpp",
-                "boost/get_pointer.hpp",
-                "boost/is_placeholder.hpp",
-                "boost/visit_each.hpp",
-                "boost/io_fwd.hpp",
-                "boost/io/**",
-                "boost/functional.hpp",
-                "boost/functional/**",
-                "boost/container_hash/**",
                 "boost/integer.hpp",
-                "boost/integer_fwd.hpp",
                 "boost/integer_traits.hpp",
-                "boost/integer/**",
-                "boost/tuple/**",
-                "boost/next_prior.hpp",
-                "boost/iterator.hpp",
-                "boost/iterator_adaptors.hpp",
-                "boost/iterator/**",
                 "boost/scoped_array.hpp",
                 "boost/optional.hpp",
                 "boost/optional/**",
@@ -111,12 +89,6 @@ namespace boost
                 "boost/function/**",
                 "boost/type_index.hpp",
                 "boost/type_index/**",
-                "boost/chrono.hpp",
-                "boost/chrono/**",
-                "boost/ratio.hpp",
-                "boost/ratio/**",
-                "boost/atomic.hpp",
-                "boost/atomic/**",
                 "boost/memory_order.hpp",
                 "boost/container/**",
             };
@@ -127,7 +99,12 @@ namespace boost
         protected override Bam.Core.StringArray ExtraHeaderFiles { get; } = new Bam.Core.StringArray(
             "boost/version.hpp",
             "boost/limits.hpp",
-            "boost/operators.hpp"
+            "boost/operators.hpp",
+            "boost/type.hpp",
+            "boost/get_pointer.hpp",
+            "boost/is_placeholder.hpp",
+            "boost/visit_each.hpp",
+            "boost/memory_order.hpp"
         );
 
         protected override void

@@ -30,8 +30,14 @@
 namespace boost
 {
     class IO :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/io_fwd.hpp",
+            "boost/io/**"
+        );
+
         protected override void
         Init()
         {

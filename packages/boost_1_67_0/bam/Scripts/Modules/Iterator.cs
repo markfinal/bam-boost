@@ -30,8 +30,16 @@
 namespace boost
 {
     class Iterator :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/iterator.hpp",
+            "boost/iterator_adaptors.hpp",
+            "boost/next_prior.hpp",
+            "boost/iterator/**"
+        );
+
         protected override void
         Init()
         {

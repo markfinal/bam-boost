@@ -30,8 +30,14 @@
 namespace boost
 {
     class Bind :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/bind.hpp",
+            "boost/bind/**"
+        );
+
         protected override void
         Init()
         {
@@ -39,6 +45,8 @@ namespace boost
 
             var headers = this.CreateHeaderCollection("$(packagedir)/boost/bind/**");
             headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/bind.hpp"));
+
+            this.CompileAgainst<Core>();
         }
     }
 }

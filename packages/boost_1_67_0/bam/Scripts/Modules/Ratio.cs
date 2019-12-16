@@ -30,8 +30,14 @@
 namespace boost
 {
     class Ratio :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/ratio.hpp",
+            "boost/ratio/**"
+        );
+
         protected override void
         Init()
         {
@@ -39,6 +45,8 @@ namespace boost
 
             var headers = this.CreateHeaderCollection("$(packagedir)/boost/ratio/**.hpp");
             headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/ratio.hpp"));
+
+            this.CompileAgainst<Integer>();
         }
     }
 }

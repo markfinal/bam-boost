@@ -30,8 +30,14 @@
 namespace boost
 {
     class Functional :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/functional.hpp",
+            "boost/functional/**"
+        );
+
         protected override void
         Init()
         {
@@ -39,6 +45,8 @@ namespace boost
 
             var headers = this.CreateHeaderCollection("$(packagedir)/boost/functional/**");
             headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/functional.hpp"));
+
+            this.CompileAgainst<ContainerHash>();
         }
     }
 }
