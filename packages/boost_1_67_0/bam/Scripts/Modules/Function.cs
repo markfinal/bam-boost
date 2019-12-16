@@ -30,8 +30,13 @@
 namespace boost
 {
     class Function :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/current_function.hpp"
+        );
+
         protected override void
         Init()
         {

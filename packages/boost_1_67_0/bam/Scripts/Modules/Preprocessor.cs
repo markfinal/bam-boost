@@ -30,8 +30,14 @@
 namespace boost
 {
     class Preprocessor :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/preprocessor.hpp",
+            "boost/preprocessor/**"
+        );
+
         protected override void
         Init()
         {

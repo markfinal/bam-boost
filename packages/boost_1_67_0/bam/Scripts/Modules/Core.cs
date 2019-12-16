@@ -35,6 +35,7 @@ namespace boost
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
             "boost/noncopyable.hpp",
+            "boost/checked_delete.hpp",
             "boost/core/**.hpp"
         );
 

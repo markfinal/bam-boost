@@ -30,8 +30,13 @@
 namespace boost
 {
     class Move :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/move/**"
+        );
+
         protected override void
         Init()
         {

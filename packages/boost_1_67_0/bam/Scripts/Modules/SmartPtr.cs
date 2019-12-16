@@ -30,8 +30,14 @@
 namespace boost
 {
     class SmartPtr :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/shared_ptr.hpp",
+            "boost/smart_ptr/**"
+        );
+
         protected override void
         Init()
         {

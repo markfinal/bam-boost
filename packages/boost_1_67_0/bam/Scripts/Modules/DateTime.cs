@@ -30,11 +30,17 @@
 namespace boost
 {
     class DateTime :
-        GenericBoostModule
+        GenericBoostModule,
+        C.IPublicHeaders
     {
         public DateTime() :
             base("date_time")
         {}
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/date_time.hpp",
+            "boost/date_time/**"
+        );
 
         protected override void
         Init()
@@ -42,6 +48,11 @@ namespace boost
             base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/date_time/src/gregorian/*.cpp");
+
+            this.CompileAgainstPublicly<Exception>(this.BoostSource);
+            this.CompileAgainstPublicly<SmartPtr>(this.BoostSource);
+            this.CompileAgainstPublicly<Mpl>(this.BoostSource);
+            this.CompileAgainstPublicly<Numeric>(this.BoostSource);
 
             /*
             this.PublicPatch((settings, appliedTo) =>

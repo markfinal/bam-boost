@@ -30,14 +30,21 @@
 namespace boost
 {
     class Mpl :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/mpl/**"
+        );
+
         protected override void
         Init()
         {
             base.Init();
 
             this.CreateHeaderCollection("$(packagedir)/boost/mpl/**");
+
+            this.CompileAgainst<Preprocessor>();
         }
     }
 }

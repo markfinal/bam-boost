@@ -121,6 +121,7 @@ namespace boost
             this.CompileAgainstPublicly<Config>(this.BoostSource);
             this.CompileAgainstPublicly<Detail>(this.BoostSource);
             this.CompileAgainstPublicly<TypeTraits>(this.BoostSource);
+            this.CompileAgainstPublicly<Move>(this.BoostSource);
         }
     }
 
