@@ -127,6 +127,8 @@ namespace boost
             this.CompileAgainstPublicly<Atomic>(this.BoostSource);
             this.CompileAgainstPublicly<Tuple>(this.BoostSource);
             this.CompileAgainstPublicly<Iterator>(this.BoostSource);
+            this.CompileAgainstPublicly<Optional>(this.BoostSource);
+            this.CompileAgainstPublicly<Function>(this.BoostSource);
         }
     }
 

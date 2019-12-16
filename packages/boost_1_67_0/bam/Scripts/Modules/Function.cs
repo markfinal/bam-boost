@@ -34,7 +34,11 @@ namespace boost
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/current_function.hpp"
+            "boost/current_function.hpp",
+            "boost/function.hpp",
+            "boost/function_equal.hpp",
+            "boost/function_output_iterator.hpp",
+            "boost/function/**"
         );
 
         protected override void
@@ -46,6 +50,9 @@ namespace boost
             headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/function.hpp"));
             headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/function_equal.hpp"));
             headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/function_output_iterator.hpp"));
+
+            this.CompileAgainst<Integer>();
+            this.CompileAgainst<TypeIndex>();
         }
     }
 }

@@ -30,8 +30,16 @@
 namespace boost
 {
     class Optional :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/optional.hpp",
+            "boost/none.hpp",
+            "boost/none_t.hpp",
+            "boost/optional/**"
+        );
+
         protected override void
         Init()
         {

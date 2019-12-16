@@ -30,8 +30,14 @@
 namespace boost
 {
     class TypeIndex :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/type_index.hpp",
+            "boost/type_index/**"
+        );
+
         protected override void
         Init()
         {

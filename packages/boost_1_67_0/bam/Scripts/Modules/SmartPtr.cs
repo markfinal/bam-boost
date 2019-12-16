@@ -36,6 +36,7 @@ namespace boost
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
             "boost/shared_ptr.hpp",
             "boost/enable_shared_from_this.hpp",
+            "boost/scoped_array.hpp",
             "boost/smart_ptr/**"
         );
 
