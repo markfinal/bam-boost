@@ -30,11 +30,16 @@
 namespace boost
 {
     class System :
-        GenericBoostModule
+        GenericBoostModule,
+        C.IPublicHeaders
     {
         public System() :
             base("system")
         {}
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/system/**"
+        );
 
         protected override void
         Init()

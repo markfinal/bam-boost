@@ -42,7 +42,7 @@ namespace boost
         {
             base.Init();
 
-            var headers = this.CreateHeaderCollection("$(packagedir)/boost/detail/**.hpp");
+            this.CreateHeaderCollection("$(packagedir)/boost/detail/**.hpp");
         }
     }
 }

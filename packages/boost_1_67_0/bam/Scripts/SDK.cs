@@ -99,7 +99,6 @@ namespace boost
                 "boost/type.hpp",
                 "boost/date_time.hpp",
                 "boost/date_time/**",
-                "boost/system/**",
                 "boost/noncopyable.hpp",
                 "boost/utility.hpp",
                 "boost/utility/**",
