@@ -78,8 +78,6 @@ namespace boost
                 "boost/predef.h",
                 "boost/predef/**",
                 "boost/core/**",
-                "boost/config.hpp",
-                "boost/config/**",
                 "boost/type_traits.hpp",
                 "boost/type_traits/**",
                 "boost/detail/**",

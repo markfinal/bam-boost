@@ -117,6 +117,11 @@ namespace boost
                     this.LinkPubliclyAgainst<Chrono>();
                 */
             }
+
+            // TODO: fix me
+            // adding this causes problems with Xcode generation, reporting
+            // (Bam.Core.Exception) Cannot create Xcode project for Module boost.Config as it has no registered outputs
+            this.CompileAgainstPublicly<Config>(this.BoostSource);
         }
     }
 

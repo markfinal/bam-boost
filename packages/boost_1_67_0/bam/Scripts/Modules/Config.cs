@@ -30,8 +30,14 @@
 namespace boost
 {
     class Config :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/config.hpp",
+            "boost/config/**"
+        );
+
         protected override void
         Init()
         {
