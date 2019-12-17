@@ -30,13 +30,9 @@
 namespace boost
 {
     class Exception :
-        GenericBoostModule,
+        C.HeaderLibrary,
         C.IPublicHeaders
     {
-        public Exception() :
-            base("exception")
-        {}
-
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
             "boost/throw_exception.hpp",
             "boost/exception_ptr.hpp",
@@ -48,9 +44,11 @@ namespace boost
         {
             base.Init();
 
-            this.BoostSource.AddFiles("$(packagedir)/libs/exception/src/*.cpp");
+            var headers = this.CreateHeaderCollection("$(packagedir)/boost/exception/**.hpp");
+            headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/throw_exception.hpp"));
+            headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/exception_ptr.hpp"));
 
-            this.CompileAgainstPublicly<Function>(this.BoostSource);
+            this.CompileAgainst<Function>();
         }
     }
 
