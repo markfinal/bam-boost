@@ -27,6 +27,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion // License
+using Bam.Core;
 namespace boost
 {
     class DateTime :
@@ -53,6 +54,11 @@ namespace boost
             this.CompileAgainstPublicly<SmartPtr>(this.BoostSource);
             this.CompileAgainstPublicly<Mpl>(this.BoostSource);
             this.CompileAgainstPublicly<Numeric>(this.BoostSource);
+
+            if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Windows))
+            {
+                this.CompileAgainstPublicly<WinAPI>(this.BoostSource);
+            }
 
             /*
             this.PublicPatch((settings, appliedTo) =>

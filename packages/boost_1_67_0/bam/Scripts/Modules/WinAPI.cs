@@ -29,13 +29,12 @@
 #endregion // License
 namespace boost
 {
-    class Intrusive :
+    class WinAPI :
         C.HeaderLibrary,
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/intrusive_ptr.hpp",
-            "boost/intrusive/**"
+            "boost/winapi/**"
         );
 
         protected override void
@@ -43,8 +42,9 @@ namespace boost
         {
             base.Init();
 
-            var headers = this.CreateHeaderCollection("$(packagedir)/boost/intrusive/**.hpp");
-            headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/intrusive_ptr.hpp"));
+            this.CreateHeaderCollection("$(packagedir)/boost/winapi/**.hpp");
+
+            this.CompileAgainst<Intrusive>();
         }
     }
 }

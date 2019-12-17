@@ -71,10 +71,7 @@ namespace boost
             /*
             this.headers = new Bam.Core.StringArray
             {
-                "boost/winapi/**", // TODO: Windows only?
                 "boost/exception_ptr.hpp",
-                "boost/intrusive_ptr.hpp",
-                "boost/intrusive/**",
                 "boost/integer.hpp",
                 "boost/integer_traits.hpp",
                 "boost/memory_order.hpp",
