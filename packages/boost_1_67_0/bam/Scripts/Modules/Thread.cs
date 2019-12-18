@@ -68,6 +68,9 @@ namespace boost
             if (this.BuildEnvironment.Platform.Includes(EPlatform.Windows))
             {
                 this.BoostSource.AddFiles("$(packagedir)/libs/thread/src/win32/*.cpp");
+
+                this.CompileAgainstPublicly<Container>(this.BoostSource);
+
                 /*
                 this.BoostSource.PrivatePatch(settings =>
                     {

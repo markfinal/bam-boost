@@ -34,53 +34,10 @@ namespace boost
     class SDK :
         C.SDKTemplate
     {
-        private readonly Bam.Core.TypeArray libraryTypes = new Bam.Core.TypeArray(
-            /*
-            typeof(Config),
-            typeof(SmartPtr),
-            typeof(Predef),
-            typeof(TypeTraits),
-            typeof(Mpl),
-            typeof(Preprocessor),
-            typeof(Numeric),
-            typeof(Utility),
-            typeof(Ratio),
-            typeof(Intrusive),
-            typeof(Move),
-            typeof(Bind),
-            typeof(IO),
-            typeof(Functional),
-            typeof(ContainerHash),
-            typeof(Integer),
-            typeof(Tuple),
-            typeof(Iterator),
-            typeof(Optional),
-            typeof(Function),
-            typeof(TypeIndex),
-            typeof(DateTime),
-            typeof(Chrono),
-            typeof(System),
-            typeof(Atomic),
-            typeof(Container)
-            */
+        protected override Bam.Core.TypeArray LibraryModuleTypes { get; } = new Bam.Core.TypeArray(
             typeof(Thread)
         );
 
-        public SDK()
-        {
-            /*
-            this.headers = new Bam.Core.StringArray
-            {
-                "boost/exception_ptr.hpp",
-                "boost/integer.hpp",
-                "boost/integer_traits.hpp",
-                "boost/memory_order.hpp",
-                "boost/container/**",
-            };
-            */
-        }
-
-        protected override Bam.Core.TypeArray LibraryModuleTypes => this.libraryTypes;
         protected override Bam.Core.StringArray ExtraHeaderFiles { get; } = new Bam.Core.StringArray(
             "boost/version.hpp",
             "boost/limits.hpp",

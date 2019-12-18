@@ -30,8 +30,13 @@
 namespace boost
 {
     class Container :
-        C.HeaderLibrary
+        C.HeaderLibrary,
+        C.IPublicHeaders
     {
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/container/**"
+        );
+
         protected override void
         Init()
         {
