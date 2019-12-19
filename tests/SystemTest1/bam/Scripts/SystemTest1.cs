@@ -11,6 +11,26 @@ namespace SystemTest1
         }
     }
 
+    sealed class UserConfiguration :
+        Bam.Core.IOverrideModuleConfiguration
+    {
+        void
+        Bam.Core.IOverrideModuleConfiguration.execute(
+            Bam.Core.IModuleConfiguration config,
+            Bam.Core.Environment buildEnvironment)
+        {
+            if (config is boost.ConfigureSDK boostSDKConfig)
+            {
+                boostSDKConfig.IncludedModules.Clear();
+                boostSDKConfig.IncludedModules.Add(typeof(boost.System));
+            }
+            if (config is boost.ConfigureBoost boostConfig)
+            {
+                boostConfig.EnableAutoLinking = false;
+            }
+        }
+    }
+
     class SystemTest1 :
         C.Cxx.ConsoleApplication
     {
