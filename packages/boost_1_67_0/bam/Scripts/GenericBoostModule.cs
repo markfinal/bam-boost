@@ -41,7 +41,10 @@ namespace boost
         IConfigureBoost
     {
         public ConfigureBoost(
-            Bam.Core.Environment buildEnvironment) => this.EnableAutoLinking = true;
+            Bam.Core.Environment buildEnvironment)
+        {
+            this.EnableAutoLinking = true;
+        }
 
         public bool EnableAutoLinking { get; set; }
     }

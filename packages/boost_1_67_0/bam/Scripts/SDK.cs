@@ -30,13 +30,35 @@
 using System.Linq;
 namespace boost
 {
+    interface IConfigureSDK :
+        Bam.Core.IModuleConfiguration
+    {
+        Bam.Core.TypeArray IncludedModules { get; }
+    }
+
+    sealed class ConfigureSDK :
+        IConfigureSDK
+    {
+        public ConfigureSDK(
+            Bam.Core.Environment buildEnvironment)
+        {
+            this.IncludedModules = new Bam.Core.TypeArray(
+                typeof(Thread)
+            );
+        }
+
+        public Bam.Core.TypeArray IncludedModules { get; set; }
+    }
+
     [Bam.Core.ModuleGroup("Thirdparty/Boost")]
     class SDK :
-        C.SDKTemplate
+        C.SDKTemplate,
+        Bam.Core.IHasModuleConfiguration
     {
-        protected override Bam.Core.TypeArray LibraryModuleTypes { get; } = new Bam.Core.TypeArray(
-            typeof(Thread)
-        );
+        global::System.Type Bam.Core.IHasModuleConfiguration.ReadOnlyInterfaceType => typeof(IConfigureSDK);
+        global::System.Type Bam.Core.IHasModuleConfiguration.WriteableClassType => typeof(ConfigureSDK);
+
+        protected override Bam.Core.TypeArray LibraryModuleTypes { get; } = new Bam.Core.TypeArray();
 
         protected override Bam.Core.StringArray ExtraHeaderFiles { get; } = new Bam.Core.StringArray(
             "boost/version.hpp",
@@ -52,7 +74,10 @@ namespace boost
         protected override void
         Init()
         {
+            this.LibraryModuleTypes.AddRange((this.Configuration as IConfigureSDK).IncludedModules);
+
             base.Init();
+
             this.PublicPatch((settings, appliedTo) =>
             {
                 if (settings is C.ICommonPreprocessorSettings preprocessor)
