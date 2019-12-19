@@ -108,7 +108,10 @@ namespace boost
                     throw new Bam.Core.Exception($"Unsupported version of VisualC, {visualC.Version}");
                 }
                 this.Macros[C.ModuleMacroNames.DynamicLibraryPrefix] = Bam.Core.TokenizedString.CreateVerbatim("lib");
-                this.Macros[C.ModuleMacroNames.LibraryPrefix] = Bam.Core.TokenizedString.CreateVerbatim("lib");
+                if (!(this is C.IDynamicLibrary))
+                {
+                    this.Macros[C.ModuleMacroNames.LibraryPrefix] = Bam.Core.TokenizedString.CreateVerbatim("lib");
+                }
                 this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString(
                     $"boost_{this.Name}-vc{vcVer}-$(boost_vc_mode)-x64-{this.Macros[C.ModuleMacroNames.MajorVersion].ToString()}_{this.Macros[C.ModuleMacroNames.MinorVersion].ToString()}{this.Macros[C.ModuleMacroNames.PatchVersion].ToString()}"
                 );
