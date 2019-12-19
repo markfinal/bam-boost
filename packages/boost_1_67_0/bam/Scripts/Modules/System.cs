@@ -51,6 +51,7 @@ namespace boost
 
             this.BoostHeaders.AddFile("$(packagedir)/boost/cerrno.hpp");
 
+            this.CompileAgainstPublicly<Config>(this.BoostSource);
             this.CompileAgainstPublicly<Predef>(this.BoostSource);
             this.CompileAgainstPublicly<Integer>(this.BoostSource);
             this.CompileAgainstPublicly<Assert>(this.BoostSource);
