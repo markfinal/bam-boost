@@ -29,12 +29,12 @@
 #endregion // License
 namespace boost
 {
-    class StaticAssert :
+    class Any :
         C.HeaderLibrary,
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/static_assert.hpp"
+            "boost/any.hpp"
         );
 
         protected override void
@@ -42,9 +42,10 @@ namespace boost
         {
             base.Init();
 
-            this.CreateHeaderCollection("$(packagedir)/boost/static_assert.hpp");
+            this.CreateHeaderCollection("$(packagedir)/boost/any.hpp");
 
-            this.CompileAgainst<Detail>();
+            this.CompileAgainst<TypeIndex>();
+            this.CompileAgainst<Utility>();
         }
     }
 }

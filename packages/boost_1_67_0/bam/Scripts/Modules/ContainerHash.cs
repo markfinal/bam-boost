@@ -45,6 +45,7 @@ namespace boost
             this.CreateHeaderCollection("$(packagedir)/boost/container_hash/**");
 
             this.CompileAgainst<Integer>();
+            this.CompileAgainst<Assert>();
         }
     }
 }

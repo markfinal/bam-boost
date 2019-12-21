@@ -30,11 +30,17 @@
 namespace boost
 {
     class ProgramOptions :
-        GenericBoostModule
+        GenericBoostModule,
+        C.IPublicHeaders
     {
         public ProgramOptions() :
             base("program_options")
         {}
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+            "boost/program_options.hpp",
+            "boost/program_options/**"
+        );
 
         protected override void
         Init()
@@ -42,6 +48,13 @@ namespace boost
             base.Init();
 
             this.BoostSource.AddFiles("$(packagedir)/libs/program_options/src/*.cpp");
+
+            this.CompileAgainstPublicly<Config>(this.BoostSource);
+            this.CompileAgainstPublicly<Any>(this.BoostSource);
+            this.CompileAgainstPublicly<Exception>(this.BoostSource);
+            this.CompileAgainstPublicly<Bind>(this.BoostSource);
+            this.CompileAgainstPublicly<LexicalCast>(this.BoostSource);
+            this.CompileAgainstPublicly<SmartPtr>(this.BoostSource);
 
             /*
             this.BoostSource.PrivatePatch(settings =>

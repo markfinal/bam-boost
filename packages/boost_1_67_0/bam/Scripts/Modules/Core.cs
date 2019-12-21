@@ -48,6 +48,8 @@ namespace boost
 
             var headers = this.CreateHeaderCollection("$(packagedir)/boost/core/**.hpp");
             headers.AddFile("$(packagedir)/boost/noncopyable.hpp");
+
+            //this.CompileAgainst<Bind>(); // TODO: cyclic dependency
         }
     }
 }

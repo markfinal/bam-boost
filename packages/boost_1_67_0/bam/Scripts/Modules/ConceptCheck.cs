@@ -29,12 +29,14 @@
 #endregion // License
 namespace boost
 {
-    class StaticAssert :
+    class ConceptCheck :
         C.HeaderLibrary,
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/static_assert.hpp"
+            "boost/concept_check.hpp",
+            "boost/concept_check/**",
+            "boost/concept/**"
         );
 
         protected override void
@@ -42,9 +44,9 @@ namespace boost
         {
             base.Init();
 
-            this.CreateHeaderCollection("$(packagedir)/boost/static_assert.hpp");
-
-            this.CompileAgainst<Detail>();
+            var headers = this.CreateHeaderCollection("$(packagedir)/boost/concept_check.hpp");
+            headers.AddFiles("$(packagedir)/boost/concept_check/**.hpp");
+            headers.AddFiles("$(packagedir)/boost/concept/**.hpp");
         }
     }
 }

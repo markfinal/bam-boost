@@ -29,12 +29,13 @@
 #endregion // License
 namespace boost
 {
-    class StaticAssert :
+    class Range :
         C.HeaderLibrary,
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/static_assert.hpp"
+            "boost/range.hpp",
+            "boost/range/**"
         );
 
         protected override void
@@ -42,9 +43,11 @@ namespace boost
         {
             base.Init();
 
-            this.CreateHeaderCollection("$(packagedir)/boost/static_assert.hpp");
+            var headers = this.CreateHeaderCollection("$(packagedir)/boost/range.hpp");
+            headers.AddFiles("$(packagedir)/boost/range/**.hpp");
 
-            this.CompileAgainst<Detail>();
+            this.CompileAgainst<Iterator>();
+            this.CompileAgainst<ConceptCheck>();
         }
     }
 }

@@ -53,6 +53,7 @@ namespace boost
 
             this.CompileAgainst<Integer>();
             this.CompileAgainst<TypeIndex>();
+            this.CompileAgainst<Move>();
         }
     }
 }

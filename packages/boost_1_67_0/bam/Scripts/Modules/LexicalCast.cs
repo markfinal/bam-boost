@@ -29,12 +29,13 @@
 #endregion // License
 namespace boost
 {
-    class StaticAssert :
+    class LexicalCast :
         C.HeaderLibrary,
         C.IPublicHeaders
     {
         Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
-            "boost/static_assert.hpp"
+            "boost/lexical_cast.hpp",
+            "boost/lexical_cast/**"
         );
 
         protected override void
@@ -42,9 +43,14 @@ namespace boost
         {
             base.Init();
 
-            this.CreateHeaderCollection("$(packagedir)/boost/static_assert.hpp");
+            var headers = this.CreateHeaderCollection("$(packagedir)/boost/lexical_cast.hpp");
+            headers.AddFiles("$(packagedir)/boost/lexical_cast/**.hpp");
 
-            this.CompileAgainst<Detail>();
+            this.CompileAgainst<Range>();
+            this.CompileAgainst<Numeric>();
+            this.CompileAgainst<Array>();
+            this.CompileAgainst<Container>();
+            this.CompileAgainst<Math>();
         }
     }
 }

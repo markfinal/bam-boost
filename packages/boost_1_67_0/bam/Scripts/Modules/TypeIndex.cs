@@ -45,6 +45,13 @@ namespace boost
 
             var headers = this.CreateHeaderCollection("$(packagedir)/boost/type_index/**.hpp");
             headers.AddFile(this.CreateTokenizedString("$(packagedir)/boost/type_index.hpp"));
+
+            this.CompileAgainst<ContainerHash>();
+            this.CompileAgainst<StaticAssert>();
+            //this.CompileAgainst<Exception>(); TODO: should be here, but this causes a circular dependency
+            this.CompileAgainst<Core>();
+            this.CompileAgainst<TypeTraits>();
+            this.CompileAgainst<Mpl>();
         }
     }
 }

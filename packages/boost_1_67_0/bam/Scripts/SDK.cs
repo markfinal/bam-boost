@@ -68,7 +68,8 @@ namespace boost
             "boost/get_pointer.hpp",
             "boost/is_placeholder.hpp",
             "boost/visit_each.hpp",
-            "boost/memory_order.hpp"
+            "boost/memory_order.hpp",
+            "boost/swap.hpp"
         );
 
         protected override void
