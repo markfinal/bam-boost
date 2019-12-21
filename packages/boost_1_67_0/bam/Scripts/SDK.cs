@@ -58,7 +58,7 @@ namespace boost
         global::System.Type Bam.Core.IHasModuleConfiguration.ReadOnlyInterfaceType => typeof(IConfigureSDK);
         global::System.Type Bam.Core.IHasModuleConfiguration.WriteableClassType => typeof(ConfigureSDK);
 
-        public override Bam.Core.TypeArray LibraryModuleTypes { get; } = new Bam.Core.TypeArray();
+        protected override Bam.Core.TypeArray LibraryModuleTypes { get; } = new Bam.Core.TypeArray();
 
         protected override Bam.Core.StringArray ExtraHeaderFiles { get; } = new Bam.Core.StringArray(
             "boost/version.hpp",
