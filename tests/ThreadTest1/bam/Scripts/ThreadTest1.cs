@@ -11,6 +11,21 @@ namespace ThreadTest1
         }
     }
 
+    sealed class UserConfiguration :
+        Bam.Core.IOverrideModuleConfiguration
+    {
+        void
+        Bam.Core.IOverrideModuleConfiguration.execute(
+            Bam.Core.IModuleConfiguration config,
+            Bam.Core.Environment buildEnvironment)
+        {
+            if (config is boost.ConfigureBoost boostConfig)
+            {
+                boostConfig.EnableAutoLinking = false;
+            }
+        }
+    }
+
     class ThreadTest1 :
         C.Cxx.ConsoleApplication
     {
