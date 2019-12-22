@@ -38,7 +38,9 @@ namespace boost
             base("date_time")
         {}
 
-        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+        Bam.Core.TokenizedString C.IPublicHeaders.SourceRootDirectory { get; } = null;
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaderPaths { get; } = new Bam.Core.StringArray(
             "boost/date_time.hpp",
             "boost/date_time/**"
         );

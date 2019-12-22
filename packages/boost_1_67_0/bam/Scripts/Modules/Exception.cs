@@ -33,7 +33,9 @@ namespace boost
         C.HeaderLibrary,
         C.IPublicHeaders
     {
-        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+        Bam.Core.TokenizedString C.IPublicHeaders.SourceRootDirectory { get; } = null;
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaderPaths { get; } = new Bam.Core.StringArray(
             "boost/throw_exception.hpp",
             "boost/exception_ptr.hpp",
             "boost/exception/**"

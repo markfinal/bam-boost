@@ -37,7 +37,9 @@ namespace boost
             base("system")
         {}
 
-        Bam.Core.StringArray C.IPublicHeaders.PublicHeaders { get; } = new Bam.Core.StringArray(
+        Bam.Core.TokenizedString C.IPublicHeaders.SourceRootDirectory { get; } = null;
+
+        Bam.Core.StringArray C.IPublicHeaders.PublicHeaderPaths { get; } = new Bam.Core.StringArray(
             "boost/system/**",
             "boost/cerrno.hpp"
         );
