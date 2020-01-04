@@ -43,7 +43,8 @@ namespace boost
             Bam.Core.Environment buildEnvironment)
         {
             this.IncludedModules = new Bam.Core.TypeArray(
-                typeof(Thread)
+                typeof(Thread),
+                typeof(ProgramOptions)
             );
         }
 
