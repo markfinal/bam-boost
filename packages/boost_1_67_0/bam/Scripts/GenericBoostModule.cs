@@ -107,22 +107,24 @@ namespace boost
                 {
                     throw new Bam.Core.Exception($"Unsupported version of VisualC, {visualC.Version}");
                 }
-                this.Macros[C.ModuleMacroNames.DynamicLibraryPrefix] = Bam.Core.TokenizedString.CreateVerbatim("lib");
+                // normally this is on the linker, but override it by being on the dynamic library
+                this.Macros.AddVerbatim(C.ModuleMacroNames.DynamicLibraryPrefix, "lib");
                 if (!(this is C.IDynamicLibrary))
                 {
-                    this.Macros[C.ModuleMacroNames.LibraryPrefix] = Bam.Core.TokenizedString.CreateVerbatim("lib");
+                    this.Macros.AddVerbatim(C.ModuleMacroNames.LibraryPrefix, "lib");
                 }
-                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = this.CreateTokenizedString(
-                    $"boost_{this.Name}-vc{vcVer}-$(boost_vc_mode)-x64-{this.Macros[C.ModuleMacroNames.MajorVersion].ToString()}_{this.Macros[C.ModuleMacroNames.MinorVersion].ToString()}{this.Macros[C.ModuleMacroNames.PatchVersion].ToString()}"
+                this.Macros.FromName(Bam.Core.ModuleMacroNames.OutputName).Set(
+                    $"boost_{this.Name}-vc{vcVer}-$(boost_vc_mode)-x64-{this.Macros.FromName(C.ModuleMacroNames.MajorVersion).ToString()}_{this.Macros.FromName(C.ModuleMacroNames.MinorVersion).ToString()}{this.Macros.FromName(C.ModuleMacroNames.PatchVersion).ToString()}",
+                    this
                 );
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.Linux))
             {
-                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
+                this.Macros.FromName(Bam.Core.ModuleMacroNames.OutputName).SetVerbatim($"boost_{this.Name}");
             }
             else if (this.BuildEnvironment.Platform.Includes(Bam.Core.EPlatform.OSX))
             {
-                this.Macros[Bam.Core.ModuleMacroNames.OutputName] = TokenizedString.CreateVerbatim(string.Format("boost_{0}", this.Name));
+                this.Macros.FromName(Bam.Core.ModuleMacroNames.OutputName).SetVerbatim($"boost_{this.Name}");
             }
             else
             {
@@ -158,11 +160,11 @@ namespace boost
                         // (since it depends on a compilation property)
                         if (vcCompiler.RuntimeLibrary == VisualCCommon.ERuntimeLibrary.MultiThreadedDebugDLL)
                         {
-                            this.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt-gd");
+                            this.Macros.AddVerbatim("boost_vc_mode", "mt-gd");
                         }
                         else
                         {
-                            this.Macros["boost_vc_mode"] = TokenizedString.CreateVerbatim("mt");
+                            this.Macros.AddVerbatim("boost_vc_mode", "mt");
                         }
                     }
                 });
