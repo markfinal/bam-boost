@@ -40,7 +40,8 @@ namespace ProgramOptionsTest1
             base.Init();
 
             var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
-            this.UseSDK<boost.SDK>(source);
+            source.CompileAgainstSDK<boost.SDK>();
+            this.LinkAgainstSDK<boost.SDK>();
 
             source.PrivatePatch(settings =>
             {
@@ -97,7 +98,7 @@ namespace ProgramOptionsTest1
         }
     }
 
-    sealed class SystemTestRuntime :
+    sealed class ProgramOptionsTestRuntime :
         Publisher.Collation
     {
         protected override void

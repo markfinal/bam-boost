@@ -35,7 +35,10 @@ namespace ThreadTest1
             base.Init();
 
             var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
-            this.UseSDK<boost.SDK>(source);
+            source.CompileAgainstSDK<boost.SDK>();
+            var boostLibsToLinkAgainst = this.LinkAgainstSDK<boost.SDK>();
+            boostLibsToLinkAgainst.Clear();
+            boostLibsToLinkAgainst.AddUnique(typeof(boost.Thread));
 
             source.PrivatePatch(settings =>
             {

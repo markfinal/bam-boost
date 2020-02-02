@@ -35,7 +35,8 @@ namespace SystemTest2
             base.Init();
 
             var source = this.CreateCxxSourceCollection("$(packagedir)/source/*.cpp");
-            var boostLibraryTypesToLink = this.UseSDK<boost.SDK>(source);
+            source.CompileAgainstSDK<boost.SDK>();
+            var boostLibraryTypesToLink = this.LinkAgainstSDK<boost.SDK>();
             boostLibraryTypesToLink.Clear();
             boostLibraryTypesToLink.Add(typeof(boost.System));
 
